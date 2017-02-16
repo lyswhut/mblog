@@ -1,0 +1,17 @@
+{
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/stsky/mblog.git"
+  },
+  "email": "lyswhut@qq.com",
+  "license": "MIT",
+  "name": "eblog",
+  "version": "0.0.1",
+  "description" : "A Node.js blog project.",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}
