@@ -1,0 +1,93 @@
+.commentInfo 共 123 条评论 | 管理回复：1 条
+.comment#comment_1
+  .author
+    img(src="/img/text.png")
+    strong 作者名字
+    br
+    time 2017-2-19 22:13:45&nbsp
+    a.floor(href="#comment_1") 1楼
+    span.reply 回复
+  p.
+    评论内容
+  .comment.commentBg
+    .author
+      img(src="/img/text.png")
+      strong 作者名字
+      br
+      time 2017-2-19 22:13:45&nbsp
+      a.floor(href="#comment_1") 1楼
+      span.reply 回复
+    p.
+      评论内容
+    .comment
+      .author
+        img(src="/img/text.png")
+        strong 作者名字
+        br
+        time 2017-2-19 22:13:45&nbsp
+        a.floor(href="#comment_1") 1楼
+        span.reply 回复
+      p.
+        评论内容
+      .comment
+        .author
+          img(src="/img/text.png")
+          strong 作者名字
+          br
+          time 2017-2-19 22:13:45&nbsp
+          a.floor(href="#comment_1") 1楼
+          span.reply 回复
+        p.
+          评论内容
+        .comment
+          .author
+            img(src="/img/text.png")
+            strong 作者名字
+            br
+            time 2017-2-19 22:13:45&nbsp
+            a.floor(href="#comment_1") 1楼
+            span.reply 回复
+          p.
+            评论内容
+    .comment
+      .author
+        img(src="/img/text.png")
+        strong 作者名字
+        br
+        time 2017-2-19 22:13:45&nbsp
+        a.floor(href="#comment_1") 1楼
+        span.reply 回复
+      p.
+        评论内容
+.comment
+  .author
+    img(src="/img/text.png")
+    strong 作者名字
+    br
+    time 2017-2-19 22:13:45&nbsp
+    a.floor(href="#comment_1") 1楼
+    span.reply 回复
+  p.
+    评论内容
+.paging
+  a(href="#") 上一页
+  a.active(href="#") 1
+  a(href="#") 2
+  a(href="#") 3
+  a(href="#") 4
+  a(href="#") 5
+  a(href="#") 下一页
+script.
+  $('.paging .active').click(function(){return false;});
+.addCommentCt
+  h3 发表评论
+  form
+    .input-group
+      span.input-group-addon 名字
+      input.form-control(type="text" name="userName" required=true)
+    .input-group
+      span.input-group-addon 邮箱
+      input.form-control(type="email" name="email" required=true)
+    textarea(name='comment' rows="7" required=true)
+    button.btn.btn-default(type="submit") 提交
+

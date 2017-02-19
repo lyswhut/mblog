@@ -1,17 +1,30 @@
 {
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/stsky/mblog.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stsky/mblog.git"
   },
   "email": "lyswhut@qq.com",
   "license": "MIT",
-  "name": "eblog",
+  "name": "mblog",
   "version": "0.0.1",
-  "description" : "A Node.js blog project.",
+  "description": "A Node.js blog project.",
   "dependencies": {
-
+    "body-parser": "^1.16.1",
+    "cors": "^2.8.1",
+    "express": "^4.14.1",
+    "jstransformer-markdown-it": "^2.0.0",
+    "mongoose": "^4.8.3",
+    "pug": "^2.0.0-beta11",
+    "vhost": "^3.0.2"
   },
   "devDependencies": {
-
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-cssmin": "^2.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-less": "^1.4.0",
+    "grunt-contrib-uglify": "^2.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-hashres": "^0.4.1"
   }
 }

@@ -1,0 +1,115 @@
+@import "bootstrap/bootstrap.less";
+
+
+.border { border: 1px solid #ddd; }
+.border_top{border-top: 1px solid #ddd;}
+.border_bottom{border-bottom: 1px solid #ddd;}
+.border_right{border-right: 1px solid #ddd;}
+.border_left{border-left: 1px solid #ddd;}
+.box_shadow { box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1); }
+.transition_ease {transition: all 0.2s ease;}
+@fontSize: 16px;
+
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei UI", "Microsoft YaHei", SimHei, "\5B8B\4F53", simsun, sans-serif;
+  // cursor: default;
+  color: #454545;
+  font-size: @fontSize;
+  background: static('/img/background.png');
+
+  >footer.container-fluid {
+    // margin: 0 15px;
+    font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 2px;
+    background: #fff;
+    .border_right;
+    .border_left;
+    .contentLeft {
+      padding: 0 5px;
+    }
+    p {
+      margin-bottom: 2px;
+    }
+  }
+}
+.main_leftCt{
+  padding: 0;
+}
+
+
+@import "includes_xs.less";
+@import "home_xs.less";
+
+
+
+
+@media (min-width: @screen-sm-min) {
+  @import "includes_sm.less";
+  @import "home_sm.less";
+
+
+  body {
+    >footer.container-fluid {
+      padding-top: 10px;
+      padding-bottom: 5px;
+      p {
+        margin-bottom: 3px;
+      }
+      .contentLeft {
+        padding: 0 10px;
+      }
+      .contentRight {
+        text-align: right;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  @import "includes_md.less";
+  @import "home_md.less";
+
+
+  body {
+    >footer.container-fluid {
+      padding-top: 15px;
+      padding-bottom: 8px;
+      margin-top: 20px;
+      .box_shadow;
+      .border;
+      p {
+        margin-bottom: 4px;
+      }
+      .contentLeft {
+        padding: 0 15px;
+      }
+    }
+  }
+  .main_leftCt{
+    padding-right: 10px;
+  }
+  .main_rightCt{
+    padding: 0;
+  }
+}
+
+@media (min-width: @screen-lg-min) {
+  @import "includes_lg.less";
+  @import "home_lg.less";
+
+
+  body {
+    >footer.container-fluid {
+      padding-bottom: 10px;
+      p {
+        margin-bottom: 5px;
+      }
+    }
+  }
+  .main_leftCt{
+    padding-right: 15px;
+  }
+
+}

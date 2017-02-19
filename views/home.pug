@@ -1,0 +1,11 @@
+extends layout.pug
+block body
+  header.home_header.container-fluid
+    h1 this is Home page!
+    em 在探索中前行，在失败中成长
+  .main.container-fluid
+    .row
+      .col-md-8.col-lg-9.main_leftCt
+        include includes/blogList.pug
+      .col-md-4.col-lg-3.hidden-xs.hidden-sm.main_rightCt
+        include includes/aside.pug
