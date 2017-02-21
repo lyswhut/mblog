@@ -13,6 +13,7 @@ module.exports = function (blogTextId) {
         id: blog._id,
         title: blog.title,
         commentCount: blog.commentCount,
+        commentReply: blog.commentReply,
         commentAdCount: blog.commentAdCount,
         date: getDate(blog.date, false),
         view: blog.view,

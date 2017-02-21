@@ -6,6 +6,7 @@ var blogTextSchema = mongoose.Schema({
 	title: String,
 	author: String,
   commentCount: Number,
+  commentReply: Number,
   commentAdCount: Number,
 	date: Date,
 	tags: [String],

@@ -60,7 +60,7 @@ app.use(express.static(__dirname + '/public'));
 _BLOGCOUNT = 0;
 var BlogText = require('./models/blogText.js');
 BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec(function (err, blogs) {
-  global._BLOGCOUNT = blogs[0].count;
+  global._BLOGCOUNT = Math.ceil(blogs[0].count/6);
 });
 
 //var static = require('./lib/static.js');
@@ -72,7 +72,7 @@ app.use(function(req, res, next) {
 
   res.locals.blogName = config.blogName;
 
-  if (!res.locals.blogCount) res.locals.blogCount = global._BLOGCOUNT;
+  if (!res.locals.blogCountPg) res.locals.blogCountPg = global._BLOGCOUNT;
 
   res.locals.time = new Date();
   next();

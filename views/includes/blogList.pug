@@ -26,12 +26,19 @@
           .blogText
             p #{blog.text}
   .paging
-    -var n = 1
-    if pg = 1
-      a.hidden(href="#") 上一页
-      while n <= countPg
-        a(href="#") n
-
-    a(href="#") 下一页
+    if pg == 1
+      a.disabled(href="/") «
+    else
+      a(href="/") «
+    - for (var n = startPg; n <= endPg; n++)
+        if n == pg
+          a.active(href="?page="+ n)= n
+        else
+          a(href="?page="+ n)= n
+    if pg == countPg
+      a.disabled(href="?page="+countPg) »
+    else
+      a(href="?page="+countPg) »
   script.
+    $('.paging a.disabled').click(function(){return false;});
     $('.paging .active').click(function(){return false;});

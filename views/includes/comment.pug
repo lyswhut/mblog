@@ -1,4 +1,4 @@
-.commentInfo 共 #{blogs.commentCount} 条评论 | 管理回复：#{blogs.commentAdCount} 条
+.commentInfo 共 #{blogs.commentCount} 条评论 | #{blogs.commentReply}条回复 | 管理参与：#{blogs.commentAdCount} 条
 
 mixin forComm(tm, cm, cId)
   each c in cm
@@ -17,15 +17,23 @@ each comm in comment
 else
   .noComment 该文章暂时没有评论！
 .paging
-  a(href="#") 上一页
-  a.active(href="#") 1
-  a(href="#") 2
-  a(href="#") 3
-  //- a(href="#") 4
-  //- a(href="#") 5
-  a(href="#") 下一页
-script.
-  $('.paging .active').click(function(){return false;});
+  if blogs.commentCount > 0
+    if pg == 1
+        a.disabled(href="?page=0") «
+    else
+      a(href="?page=0") «
+    - for (var n = startPg; n <= endPg; n++)
+        if n == pg
+          a.active(href="?page="+ n)= n
+        else
+          a(href="?page="+ n)= n
+    if pg == countPg
+      a.disabled(href="?page="+countPg) »
+    else
+      a(href="?page="+countPg) »
+    script.
+      $('.paging a.disabled').click(function(){return false;});
+      $('.paging .active').click(function(){return false;});
 .addCommentCt
   h3 发表评论
   form
@@ -35,7 +43,7 @@ script.
     .input-group
       span.input-group-addon 邮箱
       input.form-control(type="email" name="email" required=true)
-    textarea(name='comment' rows="7" required=true)
+    textarea.form-control(name='comment' rows="7" required=true)
     button.btn.btn-default(type="submit") 提交
 
 
