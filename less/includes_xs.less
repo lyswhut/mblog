@@ -119,6 +119,7 @@
       padding-right: 10px;
     }
     .blogText {
+      min-height: 500px;
       padding: 10px 0 8px;
       p {
         text-indent: @fontSize * 2;
@@ -127,13 +128,16 @@
     .blogFooter {
       padding: 5px;
       .border_bottom;
+      span {
+        word-wrap:break-word;
+      }
     }
     .blogcommentCt {
-      padding: 0 5px;
       margin-bottom: 10px;
       .commentInfo {
-        padding: 10px 5px 0;
-        margin-bottom: -5px;
+        padding: 10px 5px 8px;
+        // margin-bottom: -5px;
+        .border_bottom;
       }
     }
 
@@ -172,12 +176,14 @@
 
 // comment
 .comment {
-  margin-top: 15px;
-  padding: 8px;
+  margin-top: 5px;
+  padding: 4px 4px 0;
   background: #fff;
-  .border;
+  .border_bottom;
   .comment {
-    margin-top: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
   }
   .author {
     .clearfix();
@@ -188,7 +194,7 @@
     color: #888;
     font-size: 14px;
     strong {
-      color: #454545;
+      color: #555;
     }
 
     a {
@@ -203,21 +209,42 @@
     }
 
     .reply {
-      color: @link-color;
+      color: #aaa;
       margin-left: 10px;
       cursor: pointer;
       &:hover {
-        color: @link-hover-color;
+        color: #888;
       }
+    }
+    // time {
+    //   font-family: Optima,Georgia, "Helvetica Neue";
+    // }
+    .ding {
+      color: #aaa;
+      margin-left: 10px;
+      cursor: pointer;
+      &:hover {
+        color: #888;
+      }
+    }
+    .dingNum {
+      margin-left: 2px;
+      font-size: 14px;
+      font-family: Optima,Georgia, "Helvetica Neue";
     }
   }
   p {
-    margin-top: 5px;
-    margin-bottom: 0;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    word-wrap:break-word;
+    color: #555;
   }
 }
 .commentBg {
   background: #FFFBD9;
+}
+.noComment {
+  padding: 20px 0;
 }
 
 .addCommentCt {
@@ -233,7 +260,7 @@
     max-width: 100%;
     min-width: 100%;
     margin-bottom: 5px;
-    border-color: #ccc;
+    border:1px solid #ccc;
   }
   button {
     width: 100%;

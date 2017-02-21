@@ -4,33 +4,33 @@ var config = require('./config.js');
 var fs = require('fs');
 
 
-
 var app = express();
 
-//数据库连接
-// var mongoose = require('mongoose');
-// var opts = {
-//   server: {
-//     socketOptions: {
-//       keepAlive: 1
-//     }
-//   },
-//   replset: {
-//     socketOptions: {
-//       keepAlive: 1
-//     }
-//   }
-// };
-// switch (app.get('env')) {
-//   case 'development':
-//     mongoose.connect(config.credentials.mongo.development.connectionString, opts);
-//     break;
-//   case 'production':
-//     mongoose.connect(config.credentials.mongo.production.connetcionString, opts);
-//     break;
-//   default:
-//     throw new Error('Unknown execution environment:' + app.get('env'));
-// }
+// 数据库连接
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+var opts = {
+  server: {
+    socketOptions: {
+      keepAlive: 1
+    }
+  },
+  replset: {
+    socketOptions: {
+      keepAlive: 1
+    }
+  }
+};
+switch (app.get('env')) {
+  case 'development':
+    mongoose.connect(config.credentials.mongo.development.connectionString, opts);
+    break;
+  case 'production':
+    mongoose.connect(config.credentials.mongo.production.connetcionString, opts);
+    break;
+  default:
+    throw new Error('Unknown execution environment:' + app.get('env'));
+}
 
 
 /*通用设置*/
@@ -56,6 +56,12 @@ app.set('port', process.env.PORT || config.port);
 
 app.use(express.static(__dirname + '/public'));
 
+// 缓存博文总数
+_BLOGCOUNT = 0;
+var BlogText = require('./models/blogText.js');
+BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec(function (err, blogs) {
+  global._BLOGCOUNT = blogs[0].count;
+});
 
 //var static = require('./lib/static.js');
 app.use(function(req, res, next) {
@@ -65,6 +71,8 @@ app.use(function(req, res, next) {
   res.locals.staticUrl = config.staticUrl;
 
   res.locals.blogName = config.blogName;
+
+  if (!res.locals.blogCount) res.locals.blogCount = global._BLOGCOUNT;
 
   res.locals.time = new Date();
   next();

@@ -6888,6 +6888,7 @@ body > footer.container-fluid p {
   padding-right: 10px;
 }
 .blogTextContent .textContent .blogText {
+  min-height: 500px;
   padding: 10px 0 8px;
 }
 .blogTextContent .textContent .blogText p {
@@ -6897,13 +6898,15 @@ body > footer.container-fluid p {
   padding: 5px;
   border-bottom: 1px solid #ddd;
 }
+.blogTextContent .textContent .blogFooter span {
+  word-wrap: break-word;
+}
 .blogTextContent .textContent .blogcommentCt {
-  padding: 0 5px;
   margin-bottom: 10px;
 }
 .blogTextContent .textContent .blogcommentCt .commentInfo {
-  padding: 10px 5px 0;
-  margin-bottom: -5px;
+  padding: 10px 5px 8px;
+  border-bottom: 1px solid #ddd;
 }
 .blogTextContent .paging {
   background: #fff;
@@ -6949,13 +6952,15 @@ body > footer.container-fluid p {
   cursor: default;
 }
 .comment {
-  margin-top: 15px;
-  padding: 8px;
+  margin-top: 5px;
+  padding: 4px 4px 0;
   background: #fff;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .comment .comment {
-  margin-top: 10px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
 }
 .comment .author {
   color: #888;
@@ -6982,7 +6987,7 @@ body > footer.container-fluid p {
   margin-right: 10px;
 }
 .comment .author strong {
-  color: #454545;
+  color: #555;
 }
 .comment .author a {
   color: #888;
@@ -6995,19 +7000,37 @@ body > footer.container-fluid p {
   color: #444;
 }
 .comment .author .reply {
-  color: #337ab7;
+  color: #aaa;
   margin-left: 10px;
   cursor: pointer;
 }
 .comment .author .reply:hover {
-  color: #23527c;
+  color: #888;
+}
+.comment .author .ding {
+  color: #aaa;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.comment .author .ding:hover {
+  color: #888;
+}
+.comment .author .dingNum {
+  margin-left: 2px;
+  font-size: 14px;
+  font-family: Optima, Georgia, "Helvetica Neue";
 }
 .comment p {
-  margin-top: 5px;
-  margin-bottom: 0;
+  margin-top: 7px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  color: #555;
 }
 .commentBg {
   background: #FFFBD9;
+}
+.noComment {
+  padding: 20px 0;
 }
 .addCommentCt h3 {
   font-size: 20px;
@@ -7021,7 +7044,7 @@ body > footer.container-fluid p {
   max-width: 100%;
   min-width: 100%;
   margin-bottom: 5px;
-  border-color: #ccc;
+  border: 1px solid #ccc;
 }
 .addCommentCt button {
   width: 100%;
@@ -7068,7 +7091,7 @@ body > .home_header {
     transition: all 0.2s ease;
   }
   .comment {
-    padding: 12px;
+    padding: 6px 6px 0;
   }
   .addCommentCt h3 {
     margin-top: 10px;
@@ -7159,7 +7182,7 @@ body > .home_header {
     height: 250px;
   }
   .comment {
-    padding: 14px;
+    padding: 8px 8px 0;
   }
   .addCommentCt h3 {
     margin-top: 10px;
@@ -7205,9 +7228,6 @@ body > .home_header {
 @media (min-width: 1200px) {
   .asideContent .aside_listContent {
     margin-bottom: 15px;
-  }
-  .comment {
-    padding: 16px;
   }
   body > footer.container-fluid {
     padding-bottom: 10px;

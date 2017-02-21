@@ -6,7 +6,7 @@ module.exports = function (mainApp, apiApp) {
   //main routes
   mainApp.get('/', main_main.get_home);
 
-  mainApp.get('/t', main_main.get_t);
+  mainApp.get('/essay/:id', main_main.get_essay);
 
 };
 

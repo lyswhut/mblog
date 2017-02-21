@@ -1,81 +1,28 @@
-.commentInfo 共 123 条评论 | 管理回复：1 条
-.comment#comment_1
-  .author
-    img(src="/img/text.png")
-    strong 作者名字
-    br
-    time 2017-2-19 22:13:45&nbsp
-    a.floor(href="#comment_1") 1楼
-    span.reply 回复
-  p.
-    评论内容
-  .comment.commentBg
-    .author
-      img(src="/img/text.png")
-      strong 作者名字
-      br
-      time 2017-2-19 22:13:45&nbsp
-      a.floor(href="#comment_1") 1楼
-      span.reply 回复
-    p.
-      评论内容
-    .comment
-      .author
-        img(src="/img/text.png")
-        strong 作者名字
-        br
-        time 2017-2-19 22:13:45&nbsp
-        a.floor(href="#comment_1") 1楼
-        span.reply 回复
-      p.
-        评论内容
-      .comment
-        .author
-          img(src="/img/text.png")
-          strong 作者名字
-          br
-          time 2017-2-19 22:13:45&nbsp
-          a.floor(href="#comment_1") 1楼
-          span.reply 回复
-        p.
-          评论内容
-        .comment
-          .author
-            img(src="/img/text.png")
-            strong 作者名字
-            br
-            time 2017-2-19 22:13:45&nbsp
-            a.floor(href="#comment_1") 1楼
-            span.reply 回复
-          p.
-            评论内容
-    .comment
-      .author
-        img(src="/img/text.png")
-        strong 作者名字
-        br
-        time 2017-2-19 22:13:45&nbsp
-        a.floor(href="#comment_1") 1楼
-        span.reply 回复
-      p.
-        评论内容
-.comment
-  .author
-    img(src="/img/text.png")
-    strong 作者名字
-    br
-    time 2017-2-19 22:13:45&nbsp
-    a.floor(href="#comment_1") 1楼
-    span.reply 回复
-  p.
-    评论内容
+.commentInfo 共 #{blogs.commentCount} 条评论 | 管理回复：#{blogs.commentAdCount} 条
+
+mixin forComm(tm, cm, cId)
+  each c in cm
+    - var temp = "<div class=\"comment\" id=\"comment_"+cId+"\">"+tm+"<div class=\"author\"><img src="+staticUrl + c.authorImgUrl+"><strong>"+c.authorName+"</strong><br><time>"+c.date+"&nbsp</time><a class=\"floor\" href=\"#comment_"+cId+"\">"+c.floor+"楼</a><span class=\"reply\">回复</span><span class=\"glyphicon glyphicon-thumbs-up ding\"><span class=\"dingNum\">"+c.ding+"</span></span></div><p>"+c.comment+"</p></div>"
+    if c.replyComment.length
+      +forComm(temp,c.replyComment, cId)
+    else
+      != temp
+
+each comm in comment
+  - var temp = "<div class=\"comment\" id=\"comment_"+comm.commentId+"\"><div class=\"author\"><img src="+staticUrl + comm.authorImgUrl+"><strong>"+comm.authorName+"</strong><br><time>"+comm.date+"&nbsp</time><a class=\"floor\" href=\"#comment_"+comm.commentId+"\">"+comm.floor+"楼</a><span class=\"reply\">回复</span><span class=\"glyphicon glyphicon-thumbs-up ding\"><span class=\"dingNum\">"+comm.ding+"</span></span></div><p>"+comm.comment+"</p></div>"
+  if comm.replyComment.length
+    +forComm(temp,comm.replyComment, comm.commentId)
+  else
+    != temp
+else
+  .noComment 该文章暂时没有评论！
 .paging
   a(href="#") 上一页
   a.active(href="#") 1
   a(href="#") 2
   a(href="#") 3
-  a(href="#") 4
-  a(href="#") 5
+  //- a(href="#") 4
+  //- a(href="#") 5
   a(href="#") 下一页
 script.
   $('.paging .active').click(function(){return false;});
@@ -90,4 +37,164 @@ script.
       input.form-control(type="email" name="email" required=true)
     textarea(name='comment' rows="7" required=true)
     button.btn.btn-default(type="submit") 提交
+
+
+
+//- each comm in comment
+//-   .comment(id='comment_'+comm.commentId)
+//-     .author
+//-       img(src= staticUrl + comm.authorImgUrl)
+//-       strong #{comm.authorName}
+//-       br
+//-       time #{comm.date}&nbsp
+//-       a.floor(href='#comment_'+comm.commentId) #{comm.floor}楼
+//-       span.reply 回复
+//-       span.glyphicon.glyphicon-thumbs-up.ding
+//-         span.dingNum #{comm.ding}
+//-     p #{comm.comment}
+//-     +forComm(comm.replyComment, comm.commentId)
+  //- each comm in comment
+  //-   .comment(id='comment_'+comm.commentId)
+  //-   if comm.replyComment
+      //- each comm in comm.replyComment
+      //-   if comm.replyComment
+      //-     each comm in comm.replyComment
+
+  //-   .comment(id='comment_'+comm.commentId)
+  //-     .author
+  //-       img(src=staticUrl+comm.authorImgUrl)
+  //-       strong #{comm.authorName}
+  //-       br
+  //-       time #{comm.date}&nbsp
+  //-       a.floor(href='#comment_'+comm.commentId) #{comm.floor}楼
+  //-       span.reply 回复
+  //-       span.glyphicon.glyphicon-thumbs-up.ding
+  //-         span.dingNum #{comm.ding}
+  //-     p #{comm.comment}
+
+
+
+
+
+//- .comment#comment_5
+//-   .comment#comment_4
+//-     .comment#comment_3
+//-       .comment#comment_2
+//-         .comment#comment_1
+//-           .author
+//-             img(src="/img/text.png")
+//-             strong 作者名字1
+//-             br
+//-             time 2017-2-19 22:13:45&nbsp
+//-             a.floor(href="#comment_5") 1楼
+//-             span.reply 回复
+//-             span.glyphicon.glyphicon-thumbs-up.ding
+//-               span.dingNum 12
+//-           p.
+//-             评论内容
+//-         .author
+//-           img(src="/img/text.png")
+//-           strong 作者名字2
+//-           br
+//-           time 2017-2-19 22:13:45&nbsp
+//-           a.floor(href="#comment_4") 1楼
+//-           span.reply 回复
+//-           span.glyphicon.glyphicon-thumbs-up.ding
+//-             span.dingNum 12
+//-         p.
+//-           评论内容
+//-       .author
+//-         img(src="/img/text.png")
+//-         strong 作者名字3
+//-         br
+//-         time 2017-2-19 22:13:45&nbsp
+//-         a.floor(href="#comment_3") 1楼
+//-         span.reply 回复
+//-         span.glyphicon.glyphicon-thumbs-up.ding
+//-           span.dingNum 12
+//-       p.
+//-         评论内容
+//-     .author
+//-       img(src="/img/text.png")
+//-       strong 作者名字4
+//-       br
+//-       time 2017-2-19 22:13:45&nbsp
+//-       a.floor(href="#comment_2") 1楼
+//-       span.reply 回复
+//-       span.glyphicon.glyphicon-thumbs-up.ding
+//-         span.dingNum 12
+//-     p.
+//-       评论内容
+
+//-     .author
+//-       img(src="/img/text.png")
+//-       strong 作者名字4
+//-       br
+//-       time 2017-2-19 22:13:45&nbsp
+//-       a.floor(href="#comment_2") 1楼
+//-       span.reply 回复
+//-       span.glyphicon.glyphicon-thumbs-up.ding
+//-         span.dingNum 12
+//-     p.
+//-       评论内容
+//-   .author
+//-     img(src="/img/text.png")
+//-     strong 作者名字
+//-     br
+//-     time 2017-2-19 22:13:45&nbsp
+//-     a.floor(href="#comment_1") 1楼
+//-     span.reply 回复
+//-     span.glyphicon.glyphicon-thumbs-up.ding
+//-       span.dingNum 12
+//-   p.
+//-     评论内容
+//-   .comment#comment_6
+//-     .comment#comment_7
+//-       .author
+//-         img(src="/img/text.png")
+//-         strong 作者名字
+//-         br
+//-         time 2017-2-19 22:13:45&nbsp
+//-         a.floor(href="#comment_7") 1楼
+//-         span.reply 回复
+//-         span.glyphicon.glyphicon-thumbs-up.ding
+//-           span.dingNum 12
+//-       p.
+//-         评论内容
+//-     .author
+//-       img(src="/img/text.png")
+//-       strong 作者名字6
+//-       br
+//-       time 2017-2-19 22:13:45&nbsp
+//-       a.floor(href="#comment_6") 1楼
+//-       span.reply 回复
+//-       span.glyphicon.glyphicon-thumbs-up.ding
+//-         span.dingNum 12
+//-     p.
+//-       评论内容
+//- .comment#comment_8
+//-   .author
+//-     img(src="/img/text.png")
+//-     strong 作者名字
+//-     br
+//-     time 2017-2-19 22:13:45&nbsp
+//-     a.floor(href="#comment_8") 1楼
+//-     span.reply 回复
+//-     span.glyphicon.glyphicon-thumbs-up.ding
+//-       span.dingNum 12
+//-   p.
+//-     评论内容
+//- .comment#comment_9
+//-   .author
+//-     img(src="/img/text.png")
+//-     strong 作者名字
+//-     br
+//-     time 2017-2-19 22:13:45&nbsp
+//-     a.floor(href="#comment_9") 1楼
+//-     span.reply 回复
+//-     span.glyphicon.glyphicon-thumbs-up.ding
+//-       span.dingNum 12
+//-   p.
+//-     评论内容
+
 
