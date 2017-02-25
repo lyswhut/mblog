@@ -1,13 +1,13 @@
 var Comment = require('../models/comment.js');
 var BlogText = require('../models/blogText.js');
+var Views = require('../models/views.js');
 var getDate = require('../lib/getDate.js');
 
 
-module.exports = function (blogTextId) {
+module.exports = function (blogTextId,page,ip) {
   return function(fn){
     BlogText.findById(blogTextId, function (err, blog) {
       if(!blog) return fn(null, null);
-      // if(!value) return { error: 'Unknown blogText ID: ' + blogTextId };
       var data = [];
       data.push({
         id: blog._id,
@@ -21,7 +21,9 @@ module.exports = function (blogTextId) {
         text: blog.blogText,
         tags: blog.tags,
       });
-      Comment.find({'blogTextId': blogTextId, display: true}).sort({_id: -1}).skip(0).limit(5).exec(function (err, _comment) {
+      var commentCount = (page-1)*5;
+      if (commentCount > blog.commentCount) return fn(null, null);
+      Comment.find({'blogTextId': blogTextId, display: true}).sort({_id: -1}).skip(commentCount).limit(5).exec(function (err, _comment) {
         if(err) return fn(err, null);
         var comment = [];
         if (!_comment) {
@@ -31,7 +33,6 @@ module.exports = function (blogTextId) {
         comment = _comment.map(function (comm) {
           var cm = [];
           if (comm.replyComment) cm = forComment(comm.replyComment);
-          // console.log(comm);
           return {
             blogTextId : comm.blogTextId,
             commentId: comm.commentId,
@@ -47,28 +48,27 @@ module.exports = function (blogTextId) {
             replyComment: cm
           };
         });
-
         data.push(comment);
         fn(null, data);
       });
-      //console.log(blogText);
-      //fn(null, blogText);
-
+      Views.aggregate().unwind('ips').match({vid: data[0].id.toString(),'ips.ip':ip}).exec(function (err, rip) {
+        //console.log(rip.length);
+        if (err) console.log(err);
+        if (rip.length ===0) {
+          Views.update({vid: data[0].id},{$push:{'ips':{ip:ip,date:new Date()}}},{upsert: true},function (err) {
+            if (err) console.log('插入IP出错：'+ err);
+          });
+        } else if ((new Date().getTime() - 86400000) > (new Date(rip[0].ips.date).getTime())) {
+          Views.update({vid: data[0].id,'ips.ip':ip},{$push:{'ips':{date:new Date()}}},{upsert: true},function (err) {
+            if (err) console.log('更新IP出错：'+ err);
+          });
+        } else return;
+        BlogText.update({_id:data[0].id},{view:data[0].view+1},function (err) {
+          if (err) console.log('插入浏览数出错：'+ err);
+        });
+      });
     });
   };
-  // function (err, _blogText) {
-  //   if (err) res.send(500, 'Error occurred: database blogText error.');
-  //   if (!_blogText) return null;
-  //   var blogText = {};
-  //   blogText.id = _blogText._id;
-  //   blogText.title = _blogText.title;
-  //   blogText.date = getDate(_blogText.date, false);
-  //   blogText.view = _blogText.view;
-  //   blogText.text = _blogText.blogText;
-  //   blogText.tags = _blogText.tags;
-  //   // console.log(blogText);
-  //   return blogText;
-  // }
 };
 // 评论数据格式化
 function forComment(comm) {

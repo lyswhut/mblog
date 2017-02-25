@@ -158,7 +158,7 @@ mainApp.use(function(req, res, next) {
   //console.log(path.replace(/\/$/, ''));
   //检查缓存，如果它在那里就渲染这个视图
   if (autoViews[path]) return res.render(autoViews[path]);
-  //如果它不在缓存里，那就看看有没有.handlebars文件能匹配
+  //如果它不在缓存里，那就看看有没有.pug文件能匹配
   if (fs.existsSync(__dirname + '/views' + path + '.pug')) {
     autoViews[path] = path.replace(/^\//, '');
     return res.render(autoViews[path]);

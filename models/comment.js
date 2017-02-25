@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var AutoIncrement = require('mongoose-sequence');
 
+
 var commentSchema = mongoose.Schema({
 	blogTextId: String,
 	parentId: String,
@@ -10,6 +11,7 @@ var commentSchema = mongoose.Schema({
 	authorType: String,
 	authorName: String,
 	authorImgUrl: String,
+	authorIp: String,
 	date: Date,
 	floor: Number,
 	ding: Number,

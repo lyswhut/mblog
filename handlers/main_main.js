@@ -1,7 +1,7 @@
 var BlogText = require('../models/blogText.js');
 var essay = require('../viewModels/essay.js');
 var home = require('../viewModels/home.js');
-
+var parts = require('../viewModels/parts.js');
 
 exports.get_home = function(req, res, next) {
   var page = req.query.page && parseInt(req.query.page) || 1;
@@ -10,33 +10,31 @@ exports.get_home = function(req, res, next) {
   home(page, function (err, data) {
     if (err) res.send(500, 'Error occurred: database error.');
     if (!data) return next('route');
-    //console.log(data);
     res.render('home', {
       title: '首页' + ' -- ' + res.locals.blogName,
       blogs: data[0],
       countPg: blogCountPg,
-      startPg: startPg <= 1 ? 1 : startPg < (blogCountPg < 4 ? blogCountPg : blogCountPg - 4) ? startPg : (blogCountPg < 4 ? blogCountPg : blogCountPg - 4),
-      endPg: endPg > blogCountPg ? blogCountPg : endPg < 5 ? (blogCountPg < 5 ? blogCountPg : 5) : endPg,
+      startPg: blogCountPg <= 5 ? 1 : (blogCountPg - page <= 5 ? blogCountPg - 5 : startPg),
+      endPg: blogCountPg <= 5 ? blogCountPg : (endPg >= blogCountPg ? blogCountPg : endPg),
       pg: page,
     });
   });
-
 };
 
 exports.get_essay = function(req, res, next) {
-  essay(req.params.id)(function (err, data) {
+  var page = req.query.page && parseInt(req.query.page) || 1;
+  essay(req.params.id, page, req.ip)(function (err, data) {
     if (err) res.send(500, 'Error occurred: database error.');
     if (!data) return next('route');
-    var page = req.query.page && parseInt(req.query.page) || 1, countPg = data[0].commentCount === 0 ? 1 : Math.ceil(data[0].commentCount/5);
+    var startPg = page-2,endPg = page+2,countPg = data[0].commentCount === 0 ? 1 : Math.ceil(data[0].commentCount/5);
     if (page > countPg) return next('route');
-    var startPg = page+2,endPg = page-2;
     res.render('blogEssay', {
       title: data[0].title + ' -- ' + res.locals.blogName,
       blogs: data[0],
       comment: data[1],
       countPg: countPg,
-      startPg: startPg <= 1 ? 1 : startPg < (countPg < 4 ? countPg : countPg - 4) ? startPg : (countPg < 4 ? countPg : countPg - 4),
-      endPg: endPg > countPg ? countPg : endPg < 5 ? (countPg < 5 ? countPg : 5) : endPg,
+      startPg: countPg <= 5 ? 1 : (countPg - page <= 5 ? countPg - 5 : startPg),
+      endPg: countPg <= 5 ? countPg : (endPg >= countPg ? countPg : endPg),
       pg: page,
     });
     //console.log(data[1]);
@@ -64,82 +62,21 @@ exports.get_essay = function(req, res, next) {
   //   title: '标题11111111' + ' -- ' + res.locals.blogName
   // });
 };
+var aaa = {
+  blogTextId: '58ac545e2f7ff516cf44f666',
+  authorName: 'aaa',
+  authorImgUrl: '/img/text.png',
+  comment: 'commentTextcommentTextcommentTextcommentTextcommentTextcommentTextcommentText',
+  userAgent: 'aaaaaaaa',
+  replyComment: [],
+};
 
+// parts.insertComment(null,null,null,aaa)(function (err, result) {
+//   console.log(result);
+// });
+// exports.post_comment = function () {
 
-
-// exports.post_t = function(req, res) {
-//   Comment.update(
-//     {blogId: blogId},
-//     {viwe: true},
-//     {authorName: authorName},
-//     {authorImgUrl: '/img/text.png'},
-//     {floor: floor},
-//     {ding: ding},
-//     {comment: comment},
-//     {parentId: parentId},
-//     {date: new Date()},
-//     function(err) {
-//       if (err) {
-//         console.error(err.stack);
-//         req.session.flash = {
-//           type: 'danger',
-//           intro: 'Ooops!',
-//           message: 'There was an error processing your request.',
-//         };
-//         return res.redirect(303, '/vacations');
-//       }
-//       req.session.flash = {
-//         type: 'success',
-//         intro: 'Thank you!',
-//         message: 'You will be notified when this vacation is in season.',
-//       };
-//       return res.redirect(303, '/vacations');
-//     }
-//   );
 // };
-
-
-// [
-//   {
-//     id: Number,
-//     viwe: true,
-//     authorName: req.body.name,
-//     authorImgUrl: '/img/text.png',
-//     date: new Date(),
-//     floor: Number,
-//     ding: Number,
-//     comment: comment,
-//     replyComment: [
-//       {
-//         id: Number,
-//         viwe: true,
-//         authorName: req.body.name,
-//         authorImgUrl: '/img/text.png',
-//         date: new Date(),
-//         floor: Number,
-//         ding: Number,
-//         comment: [String],
-//         parentId: Number,
-//       },{
-//         id: Number,
-//         viwe: true,
-//         authorName: req.body.name,
-//         authorImgUrl: '/img/text.png',
-//         date: new Date(),
-//         floor: Number,
-//         ding: Number,
-//         comment: [String],
-//         parentId: Number,
-//       }
-//     ],
-//     parentId: Number,
-//   },
-//   {
-//   }
-// ];
-
-
-
 
 
 
