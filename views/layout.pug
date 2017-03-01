@@ -13,9 +13,7 @@ html(lang='cn')
     script(src=staticUrl+"/vendor/jquery-1.12.4.min.js")
     script(src=staticUrl+"/vendor/bootstrap.min.js")
     script(src=staticUrl+"/js/stsky.min.js")
-    link(rel="stylesheet" type="text/css" href=staticUrl+"/vendor/src/tomorrow-night-eighties.min.css")
-    script(type="text/javascript" src=staticUrl+"/vendor/src/prettify.js")
-  body(onload="PR.prettyPrint()")
+  body
     block body
     if showTests
       #mocha

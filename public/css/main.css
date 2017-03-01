@@ -1552,8 +1552,8 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   color: #333333;
-  background-color: #2d2d2d;
-  border: 1px solid transparent;
+  background-color: #FFFAEA;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 pre code {
@@ -6721,6 +6721,65 @@ button.close {
     display: none !important;
   }
 }
+.prettyprint {
+  background-color: #fdf6e3 !important;
+  color: #888;
+  padding: 10px;
+  border: 1px solid #E1E1E8 !important;
+}
+.prettyprint .pln {
+  color: #bd3613;
+}
+.prettyprint .str {
+  color: #269186;
+}
+.prettyprint .kwd {
+  color: #859900;
+}
+.prettyprint .com {
+  color: #586175;
+  font-style: italic;
+}
+.prettyprint .typ {
+  color: #b58900;
+}
+.prettyprint .lit {
+  color: #2aa198;
+}
+.prettyprint .pun {
+  color: #839496;
+}
+.prettyprint .opn {
+  color: #839496;
+}
+.prettyprint .clo {
+  color: #839496;
+}
+.prettyprint .tag {
+  color: #268bd2;
+}
+.prettyprint .atn {
+  color: #586175;
+}
+.prettyprint .atv {
+  color: #2aa198;
+}
+.prettyprint .dec {
+  color: #268bd2;
+}
+.prettyprint .var {
+  color: #268bd2;
+}
+.prettyprint .fun {
+  color: #FF0000;
+}
+/* Pretty printing styles. Used with prettify.js. */
+/* Solarized Light theme by Bart Bakker */
+/* Pretty printing styles. Used with prettify.js. */
+/* Solarized Light theme by Bart Bakker */
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
 .border {
   border: 1px solid #ddd;
 }
@@ -6764,6 +6823,7 @@ body {
 body pre {
   font-size: 14px;
   overflow-x: auto;
+  white-space: pre;
 }
 body pre code {
   overflow-x: auto;

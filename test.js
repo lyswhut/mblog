@@ -64,10 +64,8 @@ console.log(res[0].d4[0].d4[0]);
 
 // console.log(str.substring(0, 310)+'……');
 
-// var markdown = require( "markdown-it" )();
-var markdown = require( "markdown" ).markdown;
-// console.log( markdown.toHTML( "Hello *World*!" ) );
-md_content = "``` \nvar a = 2, b = 3;\nvar c = a + b;\n```";
-html_content = markdown.toHTML( md_content );
+var markdown = require( "markdown-it" )();
+md_content = "```js \nvar a = 2, b = 3;\nvar c = a + b;\n```";
+html_content = markdown.render( md_content );
 
 console.log(html_content);

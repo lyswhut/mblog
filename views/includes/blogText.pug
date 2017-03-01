@@ -8,6 +8,10 @@
       span.blogInfo.blogview #{blogs.view}人浏览过
       span.blogInfo.blogcomment #{blogs.commentCount}条评论
     .blogText !{blogs.text}
+    //- link(rel="stylesheet" type="text/css" href=staticUrl+"/vendor/src/tomorrow-night-eighties.min.css")
+    script(type="text/javascript" src=staticUrl+"/vendor/src/prettify.js")
+    script.
+      addEventListener('load', PR.prettyPrint, false);
     .blogFooter
       span 本文永久链接：http://#{serverDomain}/essay/#{blogs.id}
     .blogcommentCt
