@@ -5,15 +5,17 @@ html(lang='cn')
     meta(charset='utf-8')
     meta(http-equiv='x-ua-compatible' content='ie=edge')
     meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
-    title #{title}
+    title #{title} -- #{blogName}
     if showTests
       link(rel="stylesheet" href=staticUrl+"/vendor/mocha.css")
     //- link(rel="stylesheet" href=staticUrl+"/vendor/bootstrap.min.0398e652.css")
     link(rel="stylesheet" href=staticUrl+"/css/main.css")
     script(src=staticUrl+"/vendor/jquery-1.12.4.min.js")
     script(src=staticUrl+"/vendor/bootstrap.min.js")
-    script(src=staticUrl+"/js/stsky.min.4e4fdbad.js")
-  body
+    script(src=staticUrl+"/js/stsky.min.js")
+    link(rel="stylesheet" type="text/css" href=staticUrl+"/vendor/src/tomorrow-night-eighties.min.css")
+    script(type="text/javascript" src=staticUrl+"/vendor/src/prettify.js")
+  body(onload="PR.prettyPrint()")
     block body
     if showTests
       #mocha
@@ -31,7 +33,7 @@ html(lang='cn')
       .row
         .col-sm-7.col-md-6.contentLeft
           p Powered by Node.js
-          p Copyright &copy 2017 stsky.cn. All Rights（桂ICP备16001060号）
+          p Copyright &copy 2017 stsky.cn. All Rights
         .col-sm-5.col-md-6.hidden-xs.contentRight
           p #{time}
           p siteMap 网站地图 友情链接

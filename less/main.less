@@ -6,8 +6,12 @@
 .border_bottom{border-bottom: 1px solid #ddd;}
 .border_right{border-right: 1px solid #ddd;}
 .border_left{border-left: 1px solid #ddd;}
-.box_shadow { box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1); }
-.transition_ease {transition: all 0.2s ease;}
+.box_shadow { box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1); }
+.transition_ease_fast {transition: all 0.2s ease;}
+.transition_ease_slow {transition: all 0.8s ease;}
+.background_color1{ background-color: #FDFDF0 !important;}
+.background_color2{ background-color: #FBFBDF !important;}
+.height_0 { height: 0; overflow: hidden;}
 @fontSize: 16px;
 
 
@@ -17,6 +21,16 @@ body {
   color: #454545;
   font-size: @fontSize;
   background: static('/img/background.png');
+  pre{
+    font-size: 14px;
+    overflow-x: auto;
+    code {
+      overflow-x: auto;
+      li {
+        white-space:pre;
+      }
+    }
+  }
 
   >footer.container-fluid {
     // margin: 0 15px;
@@ -34,6 +48,22 @@ body {
     }
   }
 }
+#nav {
+  .form-group {
+    position: relative;
+    .search {
+      width: 80%;
+    }
+    .submit {
+      width: 18%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
 .main_leftCt{
   padding: 0;
 }
@@ -41,14 +71,14 @@ body {
 
 @import "includes_xs.less";
 @import "home_xs.less";
-
+@import "essay_xs.less";
 
 
 
 @media (min-width: @screen-sm-min) {
   @import "includes_sm.less";
   @import "home_sm.less";
-
+  @import "essay_sm.less";
 
   body {
     >footer.container-fluid {
@@ -65,12 +95,26 @@ body {
       }
     }
   }
+  #nav {
+    .form-group {
+      position: relative;
+      .search {
+        width: auto;
+      }
+      .submit {
+        width: auto;
+        position: relative;
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+    }
+  }
 }
 
 @media (min-width: @screen-md-min) {
   @import "includes_md.less";
   @import "home_md.less";
-
+  @import "essay_md.less";
 
   body {
     >footer.container-fluid {
@@ -98,7 +142,7 @@ body {
 @media (min-width: @screen-lg-min) {
   @import "includes_lg.less";
   @import "home_lg.less";
-
+  @import "essay_lg.less";
 
   body {
     >footer.container-fluid {

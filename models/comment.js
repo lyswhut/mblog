@@ -4,9 +4,8 @@ var AutoIncrement = require('mongoose-sequence');
 
 var commentSchema = mongoose.Schema({
 	blogTextId: String,
-	parentId: String,
 	vertical: Number,
-	horizontal: Number,
+	horizontal: [Number],
 	display: Boolean,
 	authorType: String,
 	authorName: String,
@@ -20,14 +19,37 @@ var commentSchema = mongoose.Schema({
 	replyComment: [],
 });
 
+// var replyCommentSchema = mongoose.Schema({
+// 	blogTextId: String,
+//   parentId: Number,
+//   horizontal: [],
+//   vertical: Number,
+//   display: Boolean,
+//   authorType: String,
+//   authorName: String,
+//   authorImgUrl: String,
+//   authorIp: String,
+//   date: Date,
+//   ding: Number,
+//   comment: String,
+//   userAgent: String,
+//   replyComment: [],
+// });
+
+
 // commentSchema.methods.getDisplayPrice = function () {
 // 	return '$' + (this.priceInCents / 100).toFixed(2);
 // };
 
-commentSchema.plugin(AutoIncrement, {inc_field: 'commentId'});
+// commentSchema.plugin(AutoIncrement, {inc_field: 'commentId'});
+// replyCommentSchema.plugin(AutoIncrement, {inc_field: 'replyCommentId'});
+
 var Comment = mongoose.model('Comment', commentSchema);
+// var ReplyComment = mongoose.model('ReplyComment', replyCommentSchema);
 
 module.exports = Comment;
+// exports.ReplyComment = mongoose.model('ReplyComment', replyCommentSchema);
+
 
 //数据库是:
 // {

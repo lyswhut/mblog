@@ -1,0 +1,21 @@
+extends layout.pug
+block body
+  h1 添加文章
+  form(action="/addBlog" method="POST")
+      input(type="hidden" name="_csrf" value=_csrfToken)
+      .input-group
+        span.input-group-addon 标题
+        input.form-control(type="text" name="title" required=true)
+      .input-group
+        span.input-group-addon 标签
+        input.form-control(type="text" name="tags" required=true)
+      textarea.form-control(name='blogDesc' rows="3" placeholder="文章摘要" required=true)
+      textarea.form-control(name='blogText' rows="15" placeholder="文章内容" required=true)
+      .btn-group(data-toggle="buttons")
+        label.btn.btn-primary
+          input#textType0(type="radio" name="textType" value="0" autocomplete="off")
+          = '普通文本/HTML文本'
+        label.btn.btn-primary.active
+          input#textType1(type="radio" name="textType" value="1" autocomplete="off" checked="true")
+          = 'Markdown文本'
+      button.btn.btn-default(type="submit") 提交

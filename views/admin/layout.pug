@@ -1,0 +1,37 @@
+//- layout.pug
+doctype html
+html(lang='cn')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='x-ua-compatible' content='ie=edge')
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    title #{title} -- #{blogName}
+    if showTests
+      link(rel="stylesheet" href=staticUrl+"/vendor/mocha.css")
+    //- link(rel="stylesheet" href=staticUrl+"/vendor/bootstrap.min.0398e652.css")
+    link(rel="stylesheet" href=staticUrl+"/css/main.css")
+    script(src=staticUrl+"/vendor/jquery-1.12.4.min.js")
+    script(src=staticUrl+"/vendor/bootstrap.min.js")
+    script(src=staticUrl+"/js/stsky.min.js")
+  body
+    block body
+    if showTests
+      #mocha
+      script(src=staticUrl+"/vendor/mocha.js")
+      script(src=staticUrl+"/vendor/chai.js")
+      script.
+        mocha.ui('tdd');
+        var assert = chai.assert;
+      script(src=staticUrl+"/qa/tests-global.js")
+      if pageTestScript
+        script(src=staticUrl+pageTestScript)
+      script.
+        mocha.run();
+    footer.footer.container-fluid
+      .row
+        .col-sm-7.col-md-6.contentLeft
+          p Powered by Node.js
+          p Copyright &copy 2017 stsky.cn. All Rights
+        .col-sm-5.col-md-6.hidden-xs.contentRight
+          p #{time}
+          p siteMap 网站地图 友情链接

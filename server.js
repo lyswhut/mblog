@@ -60,12 +60,14 @@ app.use(express.static(__dirname + '/public'));
 _BLOGCOUNT = 0;
 var BlogText = require('./models/blogText.js');
 BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec(function (err, blogs) {
-  global._BLOGCOUNT = Math.ceil(blogs[0].count/6);
+  global._BLOGCOUNT = blogs.length ? Math.ceil(blogs[0].count/6) : 0;
 });
 
 //var static = require('./lib/static.js');
 app.use(function(req, res, next) {
   res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+
+  res.locals.serverDomain = config.serverDomain;
 
   //静态资源地址设置
   res.locals.staticUrl = config.staticUrl;
@@ -98,14 +100,36 @@ mainApp.disable('x-powered-by');
 if (!config.minHtml) mainApp.locals.pretty = true;
 
 //设置cookie与session
-// mainApp.use(require('cookie-parser')(credentials.cookieSecret));
-// mainApp.use(require('express-session')());
+mainApp.use(require('cookie-parser')(config.credentials.cookieSecret));
+mainApp.use(require('express-session')());
+
 
 //防止跨站伪造请求
 mainApp.use(require('body-parser').urlencoded({
   extended: false
 }));
-// mainApp.use(require('csurf')());
+mainApp.use(require('csurf')());
+
+
+
+/*admin app*/
+var adminApp = express();
+adminApp.set('view engine', 'pug');
+adminApp.disable('x-powered-by');
+
+// html压缩控制
+if (!config.minHtml) adminApp.locals.pretty = true;
+
+//设置cookie与session
+adminApp.use(require('cookie-parser')(config.credentials.cookieSecret));
+adminApp.use(require('express-session')());
+
+
+//防止跨站伪造请求
+adminApp.use(require('body-parser').urlencoded({
+  extended: false
+}));
+adminApp.use(require('csurf')());
 
 
 
@@ -114,11 +138,6 @@ var apiApp = express();
 apiApp.set('view engine', 'pug');
 apiApp.disable('x-powered-by');
 
-
-/*admin app*/
-var adminApp = express();
-adminApp.set('view engine', 'pug');
-adminApp.disable('x-powered-by');
 
 
 /*虚拟主机*/
@@ -129,17 +148,18 @@ app.use(vhost('abc.com', mainApp));
 app.use(vhost('*.*.*.*', mainApp));
 app.use(vhost('*', mainApp));
 
+app.use(vhost('admin.abc.com', adminApp));
+
 //跨域资源共享
 app.use(vhost('api.abc.com', require('cors')()));
 
 app.use(vhost('api.abc.com', apiApp));
 
-app.use(vhost('admin.abc.com', adminApp));
 
 
 
 //载入路由模块
-require('./routes.js')(mainApp, apiApp, adminApp);
+require('./routes.js')(mainApp, adminApp, apiApp);
 
 
 // var auth = require('./lib/auth.js')(app, {
@@ -188,5 +208,5 @@ app.use(function(err, req, res, next) {
 
 
 app.listen(app.get('port'), function() {
-  console.log('Express started in ' + app.get('env') + ' mode on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
+  console.log('Express started in ' + app.get('env') + ' mode on http://'+ config.serverDomain +':' + app.get('port') + '; press Ctrl-C to terminate.');
 });

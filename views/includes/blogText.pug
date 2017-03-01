@@ -7,9 +7,9 @@
       span.blogInfo.blogTag #{blogs.tags}
       span.blogInfo.blogview #{blogs.view}人浏览过
       span.blogInfo.blogcomment #{blogs.commentCount}条评论
-    .blogText #{blogs.text}
+    .blogText !{blogs.text}
     .blogFooter
-      span 本文永久链接：http://192.168.1.200/essay/#{blogs.id}
+      span 本文永久链接：http://#{serverDomain}/essay/#{blogs.id}
     .blogcommentCt
       include comment.pug
 

@@ -3,6 +3,16 @@ block body
   header.home_header.container-fluid
     h1 this is Home page!
     em 在探索中前行，在失败中成长
+    nav.navbar.navbar-default
+      .navbar-header.visible-xs
+        span.navbar-toggle.collapsed(data-toggle="collapse" data-target="#nav" aria-expanded="false") ︽
+      .navbar-collapse.collapse#nav
+        include includes/nav.pug
+        form.navbar-form.navbar-right
+          input(type="hidden" name="_csrf" value=_csrfToken)
+          .form-group
+            input.form-control.search(type="text" placeholder="搜索文章")
+            button.btn.btn-default.submit(type="submit") 提交
   .main.container-fluid
     .row
       .col-md-8.col-lg-9.main_leftCt

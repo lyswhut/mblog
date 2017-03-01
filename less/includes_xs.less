@@ -48,36 +48,15 @@
     .blogText {
       height: 115px;
       overflow: hidden;
+      text-indent: 28px;
     }
   }
   .paging {
     background: #fff;
-    padding: 0 5px;
+    padding: 5px 5px 0;
     .clearfix();
-    a {
-      margin: 5px 0;
-      display: block;
-      float: left;
-      .border;
-      color: #777;
-      padding: 5px 15px;
-      margin-right: 5px;
-    }
-    a {
-      &:link  {
-        text-decoration: none;
-      }
-      &:hover {
-        background: #f1f1f1;
-        text-decoration: none;
-        color: #444;
-      }
-    }
-    .active {
-      color: #555;
-      background: #eaeaea;
-      font-weight: bold;
-      cursor: default;
+    .pagination {
+      margin: 0;
     }
   }
 }
@@ -144,44 +123,22 @@
   }
   .paging {
     background: #fff;
+    padding: 5px 5px 0;
     .clearfix();
     .border_bottom;
-    a {
-      margin: 5px 0;
-      display: block;
-      float: left;
-      .border;
-      color: #777;
-      padding: 5px 15px;
-      margin-right: 5px;
-    }
-    a {
-      &:link  {
-        text-decoration: none;
-      }
-      &:hover {
-        background: #f1f1f1;
-        text-decoration: none;
-        color: #444;
-      }
-    }
-    .active {
-      color: #555;
-      background: #eaeaea;
-      font-weight: bold;
-      cursor: default;
+    .pagination {
+      margin: 0;
     }
   }
 }
 
 // comment
 .comment {
-  margin-top: 5px;
-  padding: 4px 4px 0;
+  padding: 9px 4px 0;
   background: #fff;
   .border_bottom;
+  .transition_ease_slow;
   .comment {
-    margin-top: 0;
     margin-bottom: 10px;
     border: 1px solid #ddd;
   }
@@ -238,6 +195,35 @@
     margin-bottom: 10px;
     word-wrap:break-word;
     color: #555;
+  }
+
+  .addCommentCt {
+    height: 0;
+    overflow: hidden;
+    margin-left: -5px;
+    margin-right: -5px;
+    padding: 0 5px;
+    border: 1px solid #F3F3BD;
+    border-bottom: none;
+    >span {
+      .transition_ease_slow;
+      display: block;
+      font-size: 24px;
+      text-align: center;
+      border-bottom: 1px dashed #BFBEBA;
+      height: 16px;
+      color: #B9B9BD;
+      line-height: 5px;
+      cursor: pointer;
+      &:hover {
+        background: #F5F5BB;
+      }
+    }
+    textarea {
+      max-width: 100%;
+      max-width: 100%;
+      resize:none;
+    }
   }
 }
 .commentBg {

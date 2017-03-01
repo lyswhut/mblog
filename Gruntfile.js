@@ -53,7 +53,8 @@ module.exports = function(grunt) {
     uglify: {
       all: {
         files: {
-          'public/js/stsky.min.js': ['public/js/**/*.js']
+          // 'public/js/stsky.min.js': ['public/js/**/*.js']
+          'public/js/stsky.min.js': 'public/js/main.js'
         }
       }
     },
@@ -61,7 +62,7 @@ module.exports = function(grunt) {
       combine: {
         files: {
           'public/css/stsky.min.css': ['public/css/**/*.css', '!public/css/stsky*.css'],
-          'public/vendor/bootstrap.min.css': 'public/vendor/bootstrap.css'
+          // 'public/vendor/bootstrap.min.css': 'public/vendor/bootstrap.css'
         }
       }
     },
@@ -73,7 +74,7 @@ module.exports = function(grunt) {
         src: [
           'public/js/stsky.min.js',
           'public/css/stsky.min.css',
-          'public/vendor/bootstrap.min.css'
+          // 'public/vendor/bootstrap.min.css'
         ],
         dest: [
           'views/layout.pug',
@@ -83,8 +84,8 @@ module.exports = function(grunt) {
 
     watch: {
       build: {
-        files: ['less/**/*.less'],
-        tasks: ['less',/*'cssmin', 'uglify'*/],
+        files: ['less/**/*.less','public/js/main.js'],
+        tasks: ['less','cssmin', 'uglify'],
         options: { spawn: false}
       }
     },

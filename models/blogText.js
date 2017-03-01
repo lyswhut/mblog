@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Comment = require('./comment.js');
+var Comment = require('../models/comment.js');
 var AutoIncrement = require('mongoose-sequence');
 
 var blogTextSchema = mongoose.Schema({
@@ -13,6 +13,8 @@ var blogTextSchema = mongoose.Schema({
 	display: Boolean,
 	view: Number,
   ding: Number,
+  blogDesc: String,
+  textType: Number,
 	blogText: String,
 });
 

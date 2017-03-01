@@ -24,21 +24,44 @@
             span.blogInfo.blogview #{blog.view}人浏览过
             span.blogInfo.blogcomment #{blog.commentCount}条评论
           .blogText
-            p #{blog.text}
+            p !{blog.blogDesc}
   .paging
-    if pg == 1
-      a.disabled(href="/") «
-    else
-      a(href="/") «
-    - for (var n = startPg; n <= endPg; n++)
-        if n == pg
-          a.active(href="?page="+ n)= n
-        else
-          a(href="?page="+ n)= n
-    if pg == countPg
-      a.disabled(href="?page="+countPg) »
-    else
-      a(href="?page="+countPg) »
-  script.
-    $('.paging a.disabled').click(function(){return false;});
-    $('.paging .active').click(function(){return false;});
+    ul.pagination
+      if pg == 1
+        li.disabled
+          span(aria-hidden="true") &laquo;
+      else
+        li
+          a(href="/" aria-label="Previous")
+            span(aria-hidden="true") &laquo;
+      - for (var n = startPg; n <= endPg; n++)
+          if n == pg
+            li.active
+              span= n
+          else
+            li
+              a(href="?page="+ n)= n
+      if pg == countPg
+        li.disabled
+          span(aria-hidden="true") &raquo;
+      else
+        li
+          a(href="?page="+countPg aria-label="Next")
+            span(aria-hidden="true") &raquo;
+
+    //- if pg == 1
+    //-   a.disabled(href="/") «
+    //- else
+    //-   a(href="/") «
+    //- - for (var n = startPg; n <= endPg; n++)
+    //-     if n == pg
+    //-       a.active(href="?page="+ n)= n
+    //-     else
+    //-       a(href="?page="+ n)= n
+    //- if pg == countPg
+    //-   a.disabled(href="?page="+countPg) »
+    //- else
+    //-   a(href="?page="+countPg) »
+  //- script.
+  //-   $('.paging a.disabled').click(function(){return false;});
+  //-   $('.paging .active').click(function(){return false;});

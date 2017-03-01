@@ -1,3 +1,4 @@
+var markdown = require("markdown-it")({langPrefix:'prettyprint linenums lang-'});
 var BlogText = require('../models/blogText.js');
 var getDate = require('../lib/getDate.js');
 var Views = require('../models/views.js');
@@ -15,7 +16,7 @@ module.exports = function(page,fn) {
           date: getDate(blog.date, false),
           view: blog.view,
           ding: blog.ding,
-          text: blog.blogText,
+          blogDesc: blog.blogDesc.substring(0, 250)+'……',
           tags: blog.tags,
         };
       }));
@@ -86,9 +87,7 @@ module.exports = function(page,fn) {
 
 
 
-
-
-
+/*
 var Comment = require('../models/comment.js');
 Comment.find(function(err, comment) {
   if (comment.length) return;
@@ -96,11 +95,12 @@ Comment.find(function(err, comment) {
   new Comment({
     blogTextId: '58b16821104edf191cc34aa3',
     parentId: null,
-    vertical: 0,
-    horizontal: 0,
+    vertical: 1,
     display: true,
+    authorType: 'visitor',
     authorName: 'aaa',
     authorImgUrl: '/img/text.png',
+    authorIp: '192.168.1.1',
     date: new Date(),
     floor: 1,
     ding: 2,
@@ -109,39 +109,42 @@ Comment.find(function(err, comment) {
     replyComment: [{
       blogTextId: '58b16821104edf191cc34aa3',
       parentId: '',
-      vertical: 1,
-      horizontal: 0,
+      vertical: 2,
+      horizontal: 1,
       display: true,
+      authorType: 'visitor',
       authorName: 'ccc',
       authorImgUrl: '/img/text.png',
+      authorIp: '192.168.1.1',
       date: new Date(),
-      floor: 1,
       ding: 2,
       comment: 'commentTextcommentTextcommentTextcommentTextcommentTextcommentTextcommentText',
       userAgent: 'aaaaaaaa',
       replyComment: [{
         blogTextId: '58b16821104edf191cc34aa3',
         parentId: '',
-        vertical: 2,
-        horizontal: 0,
+        vertical: 3,
+        horizontal: 1,
         display: true,
-        authorName: 'eee',
+        authorType: 'visitor',
+        authorName: 'ddd',
         authorImgUrl: '/img/text.png',
+        authorIp: '192.168.1.1',
         date: new Date(),
-        floor: 1,
         ding: 2,
         comment: 'commentTextcommentTextcommentTextcommentTextcommentTextcommentTextcommentText',
         userAgent: 'aaaaaaaa',
         replyComment: [{
           blogTextId: '58b16821104edf191cc34aa3',
           parentId: '',
-          vertical: 3,
-          horizontal: 0,
+          vertical: 4,
+          horizontal: 1,
           display: true,
-          authorName: 'rrr',
+          authorType: 'visitor',
+          authorName: 'eee',
           authorImgUrl: '/img/text.png',
+          authorIp: '192.168.1.1',
           date: new Date(),
-          floor: 1,
           ding: 2,
           comment: 'commentTextcommentTextcommentTextcommentTextcommentTextcommentTextcommentText',
           userAgent: 'aaaaaaaa',
@@ -152,13 +155,14 @@ Comment.find(function(err, comment) {
     {
       blogTextId: '58b16821104edf191cc34aa3',
       parentId: '',
-      vertical: 1,
-      horizontal: 1,
+      vertical: 2,
+      horizontal: 2,
       display: true,
-      authorName: 'rrr',
+      authorType: 'visitor',
+      authorName: 'fff',
       authorImgUrl: '/img/text.png',
+      authorIp: '192.168.1.1',
       date: new Date(),
-      floor: 1,
       ding: 2,
       comment: 'commentTextcommentTextcommentTextcommentTextcommentTextcommentTextcommentText',
       userAgent: 'aaaaaaaa',
@@ -168,13 +172,14 @@ Comment.find(function(err, comment) {
   new Comment({
     blogTextId: '58b16821104edf191cc34aa3',
     parentId: null,
-    vertical: 0,
-    horizontal: 0,
+    vertical: 1,
     display: true,
-    authorName: 'aaa',
+    authorType: 'visitor',
+    authorName: 'bbbbbb',
     authorImgUrl: '/img/text.png',
+    authorIp: '192.168.1.1',
     date: new Date(),
-    floor: 1,
+    floor: 2,
     ding: 2,
     comment: 'commentTextcommentTextcommentTextcommentTextcommentTextcommentTextcommentText',
     userAgent: 'aaaaaaaa',
@@ -222,4 +227,4 @@ BlogText.find(function(err, blogText) {
     }).save();
   });
 
-});
+});*/

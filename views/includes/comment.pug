@@ -2,14 +2,14 @@
 
 mixin forComm(tm, cm, cId)
   each c in cm
-    - var temp = "<div class=\"comment\" id=\"comment_"+cId+"\">"+tm+"<div class=\"author\"><img src="+staticUrl + c.authorImgUrl+"><strong>"+c.authorName+"</strong><br><time>"+c.date+"&nbsp</time><a class=\"floor\" href=\"#comment_"+cId+"\">"+c.floor+"楼</a><span class=\"reply\">回复</span><span class=\"glyphicon glyphicon-thumbs-up ding\"><span class=\"dingNum\">"+c.ding+"</span></span></div><p>"+c.comment+"</p></div>"
+    - var temp = "<div class=\"comment\" id=\"comment_"+cId+"\">"+tm+"<div class=\"author\"><img src="+staticUrl + c.authorImgUrl+"><strong>"+c.authorName+"</strong><br><time>"+c.date+"&nbsp</time><a class=\"floor\" href=\"#comment_"+cId+"\">"+c.vertical+"楼</a><span data-commentId=\""+cId+"\" data-floor=\""+c.vertical+"\" data-horizontal=\""+c.horizontal+"\" class=\"reply\">回复</span><span class=\"glyphicon glyphicon-thumbs-up ding\"><span class=\"dingNum\">"+c.ding+"</span></span></div><p>"+c.comment+"</p></div>"
     if c.replyComment.length
       +forComm(temp,c.replyComment, cId)
     else
       != temp
 
 each comm in comment
-  - var temp = "<div class=\"comment\" id=\"comment_"+comm.commentId+"\"><div class=\"author\"><img src="+staticUrl + comm.authorImgUrl+"><strong>"+comm.authorName+"</strong><br><time>"+comm.date+"&nbsp</time><a class=\"floor\" href=\"#comment_"+comm.commentId+"\">"+comm.floor+"楼</a><span class=\"reply\">回复</span><span class=\"glyphicon glyphicon-thumbs-up ding\"><span class=\"dingNum\">"+comm.ding+"</span></span></div><p>"+comm.comment+"</p></div>"
+  - var temp = "<div class=\"comment\" id=\"comment_"+comm.commentId+"\"><div class=\"author\"><img src="+staticUrl + comm.authorImgUrl+"><strong>"+comm.authorName+"</strong><br><time>"+comm.date+"&nbsp</time><a class=\"floor\" href=\"#comment_"+comm.commentId+"\">"+comm.floor+"楼</a><span data-commentId=\""+comm.commentId +"\" data-floor=\""+comm.vertical+"\" data-horizontal=\""+comm.horizontal+"\" class=\"reply\">回复</span><span class=\"glyphicon glyphicon-thumbs-up ding\"><span class=\"dingNum\">"+comm.ding+"</span></span></div><p>"+comm.comment+"</p></div>"
   if comm.replyComment.length
     +forComm(temp,comm.replyComment, comm.commentId)
   else
@@ -18,25 +18,33 @@ else
   .noComment 该文章暂时没有评论！
 .paging
   if blogs.commentCount > 0
-    if pg == 1
-        a.disabled(href="?page=0") «
-    else
-      a(href="?page=0") «
-    - for (var n = startPg; n <= endPg; n++)
-        if n == pg
-          a.active(href="?page="+ n)= n
-        else
-          a(href="?page="+ n)= n
-    if pg == countPg
-      a.disabled(href="?page="+countPg) »
-    else
-      a(href="?page="+countPg) »
-    script.
-      $('.paging a.disabled').click(function(){return false;});
-      $('.paging .active').click(function(){return false;});
+    ul.pagination
+      if pg == countPg
+        li.disabled
+          span(aria-hidden="true") &laquo;
+      else
+        li
+          a(href="?page="+countPg aria-label="Next")
+            span(aria-hidden="true") &laquo;
+      - for (var n = endPg; n >= startPg; n--)
+          if n == pg
+            li.active
+              span= n
+          else
+            li
+              a(href="?page="+ n)= n
+      if pg == 1
+        li.disabled
+          span(aria-hidden="true") &raquo;
+      else
+        li
+          a(href="?page=1" aria-label="Previous")
+            span(aria-hidden="true") &raquo;
 .addCommentCt
   h3 发表评论
-  form
+  form(action="/essay" method="POST")
+    input(type="hidden" name="_csrf" value=_csrfToken)
+    input(type="hidden" name="blogTextId" value=blogs.id)
     .input-group
       span.input-group-addon 名字
       input.form-control(type="text" name="userName" required=true)
