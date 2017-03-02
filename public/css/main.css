@@ -6722,7 +6722,7 @@ button.close {
   }
 }
 .prettyprint {
-  background-color: #fdf6e3 !important;
+  background-color: #FFFAEA !important;
   color: #888;
   padding: 10px;
   border: 1px solid #E1E1E8 !important;
@@ -6796,7 +6796,7 @@ button.close {
   border-left: 1px solid #ddd;
 }
 .box_shadow {
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
 .transition_ease_fast {
   transition: all 0.2s ease;
@@ -7271,7 +7271,7 @@ body > .essay_header > .navbar ul a {
 }
 @media (min-width: 992px) {
   .blogListContent {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   }
   .blogListContent .listContent {
     padding: 0 15px 10px;
@@ -7288,7 +7288,7 @@ body > .essay_header > .navbar ul a {
     padding: 10px 10px 5px;
   }
   .blogTextContent {
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   }
   .blogTextContent .textContent {
     padding: 0 15px 10px;
@@ -7311,13 +7311,29 @@ body > .essay_header > .navbar ul a {
     background: #fff;
     margin-bottom: 15px;
     border: 1px solid #ddd;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   }
-  .asideContent .myInfo {
-    height: 254px;
+  .asideContent .myInfo img {
+    width: 30%;
+  }
+  .asideContent .myInfo .infoCt {
+    color: #888;
+    float: right;
+    padding: 10px 0 10px 10px;
+    width: 70%;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .asideContent .myInfo .infoCt p {
+    margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .asideContent .calendar {
-    height: 250px;
+    border-top: none;
   }
   .asideContent .blogHistory {
     height: 250px;
@@ -7355,18 +7371,18 @@ body > .essay_header > .navbar ul a {
     height: 400px;
     margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   }
   body > .essay_header {
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   }
   body > footer.container-fluid {
     padding-top: 15px;
     padding-bottom: 8px;
     margin-top: 20px;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
   }
   body > footer.container-fluid p {

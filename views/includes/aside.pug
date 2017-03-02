@@ -1,8 +1,18 @@
 .asideContent
   .aside_listContent.myInfo
-    = '个人信息'
+    img(src=staticUrl+"/img/info.png")
+    .infoCt
+      p 落雪无痕
+      p Email：lyswhut@qq.com
+      p Github：https://github.com/stsky
+
   .aside_listContent.calendar
-    = '日历'
+    link(rel="stylesheet" href=staticUrl+"/vendor/zabuto_calendar.min.css")
+    script(src=staticUrl+"/vendor/zabuto_calendar.js")
+    script.
+      $(document).ready(function () {
+          $(".calendar").zabuto_calendar();
+      });
   .aside_listContent.blogTag
     = '博文分类'
   .aside_listContent.blogHistory
