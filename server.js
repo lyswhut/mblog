@@ -1,5 +1,6 @@
 var express = require('express');
 var config = require('./config.js');
+var blogInfo = require('./models/blogInfo.js');
 // var Q = require('q');
 var fs = require('fs');
 
@@ -63,6 +64,12 @@ BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec
   global._BLOGCOUNT = blogs.length ? Math.ceil(blogs[0].count/6) : 0;
 });
 
+_BLOGTAGS = [];
+var BlogInfo = require('./models/blogInfo.js');
+BlogInfo.find({},{tags:1},function (err, tags) {
+  global._BLOGTAGS = tags[0].tags;
+});
+
 //var static = require('./lib/static.js');
 app.use(function(req, res, next) {
   res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
@@ -75,6 +82,7 @@ app.use(function(req, res, next) {
   res.locals.blogName = config.blogName;
 
   if (!res.locals.blogCountPg) res.locals.blogCountPg = global._BLOGCOUNT;
+  if (!res.locals.blogTags) res.locals.blogTags = global._BLOGTAGS;
 
   res.locals.time = new Date();
   next();

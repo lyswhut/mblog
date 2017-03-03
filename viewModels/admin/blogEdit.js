@@ -1,3 +1,4 @@
+var BlogInfo = require('../../models/blogInfo.js');
 var BlogText = require('../../models/blogText.js');
 
 exports.addBlog = function (obj) {
@@ -8,7 +9,6 @@ exports.addBlog = function (obj) {
       commentReply: 0,
       commentAdCount: 0,
       author: obj.author,
-      date: new Date(),
       tags: obj.tags,
       display: obj.display,
       view: 0,
@@ -19,10 +19,15 @@ exports.addBlog = function (obj) {
     }).save(function (err, data) {
       if (err) return fn(err, null);
       fn(null, data);
-      new Views({
-        vid: data._id,
-        ips:[]
-      }).save();
+      BlogInfo.find({},{tags:1},function (err, tags) {
+        outer: for (var i = 0; i < obj.tags.length; i++) {
+          inter: for (var j = 0; j < tags[0].tags.length; j++) {
+            if (tags[0].tags[j] === obj.tags[i]) continue outer;
+          }
+          tags[0].tags.push(obj.tags[i]);
+        }
+        tags[0].save();
+      });
     });
   };
 };

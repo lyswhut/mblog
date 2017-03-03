@@ -8,7 +8,7 @@ var blogTextSchema = mongoose.Schema({
   commentCount: Number,
   commentReply: Number,
   commentAdCount: Number,
-	date: Date,
+	date: {type:Date,default:Date.now},
 	tags: [String],
 	display: Boolean,
 	view: Number,

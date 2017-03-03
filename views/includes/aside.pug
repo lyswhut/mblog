@@ -14,8 +14,27 @@
           $(".calendar").zabuto_calendar();
       });
   .aside_listContent.blogTag
-    = '博文分类'
+    h3 文章标签
+    .tagCt
+      each tag in blogTags
+        a(href="javascript:;") #{tag}
   .aside_listContent.blogHistory
-    = '博文归档'
+    h3 博文归档
+    .historyCt
+      a(href="javascript:;") 2017年3月
+      a(href="javascript:;") 2017年3月
+      a(href="javascript:;") 2017年3月
+      a(href="javascript:;") 2017年3月
   .aside_listContent.newComment
-    = '最新评论'
+    h3 最新评论
+    .newConnentCt
+      br
+      br
+      br
+      br
+      br
+      br
+      //- a(href="javascript:;") 2017年3月
+      //- a(href="javascript:;") 2017年3月
+      //- a(href="javascript:;") 2017年3月
+      //- a(href="javascript:;") 2017年3月

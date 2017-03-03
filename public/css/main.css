@@ -7335,14 +7335,83 @@ body > .essay_header > .navbar ul a {
   .asideContent .calendar {
     border-top: none;
   }
-  .asideContent .blogHistory {
-    height: 250px;
+  .asideContent h3 {
+    margin: 5px 0;
+    padding: 10px 3px;
+    font-size: 18px;
+    color: #666;
+    border-bottom: 1px solid #ddd;
   }
   .asideContent .blogTag {
-    height: 180px;
+    padding: 0 10px 10px;
+  }
+  .asideContent .blogTag .tagCt:before,
+  .asideContent .blogTag .tagCt:after {
+    content: " ";
+    display: table;
+  }
+  .asideContent .blogTag .tagCt:after {
+    clear: both;
+  }
+  .asideContent .blogTag .tagCt:before,
+  .asideContent .blogTag .tagCt:after {
+    content: " ";
+    display: table;
+  }
+  .asideContent .blogTag .tagCt:after {
+    clear: both;
+  }
+  .asideContent .blogTag .tagCt > a {
+    color: #666;
+    display: block;
+    float: left;
+    padding: 5px 10px;
+    margin: 5px 0 0 5px;
+    border-radius: 3px;
+  }
+  .asideContent .blogTag .tagCt > a:link {
+    text-decoration: none;
+  }
+  .asideContent .blogTag .tagCt > a:hover {
+    text-decoration: none;
+    background: #eee;
+  }
+  .asideContent .blogHistory {
+    padding: 0 10px 10px;
+  }
+  .asideContent .blogHistory .historyCt:before,
+  .asideContent .blogHistory .historyCt:after {
+    content: " ";
+    display: table;
+  }
+  .asideContent .blogHistory .historyCt:after {
+    clear: both;
+  }
+  .asideContent .blogHistory .historyCt:before,
+  .asideContent .blogHistory .historyCt:after {
+    content: " ";
+    display: table;
+  }
+  .asideContent .blogHistory .historyCt:after {
+    clear: both;
+  }
+  .asideContent .blogHistory .historyCt > a {
+    color: #666;
+    display: block;
+    float: left;
+    padding: 5px 10px;
+    margin: 5px 0 0 5px;
+    border-radius: 3px;
+  }
+  .asideContent .blogHistory .historyCt > a:link {
+    text-decoration: none;
+  }
+  .asideContent .blogHistory .historyCt > a:hover {
+    text-decoration: none;
+    background: #eee;
   }
   .asideContent .newComment {
-    height: 250px;
+    padding: 0 10px 10px;
   }
   .comment {
     padding: 8px 8px 0;

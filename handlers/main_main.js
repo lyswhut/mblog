@@ -20,6 +20,7 @@ exports.get_home = function(req, res, next) {
       startPg: blogCountPg <= 5 ? 1 : (blogCountPg - page <= 5 ? blogCountPg - 5 : startPg),
       endPg: blogCountPg <= 5 ? blogCountPg : (endPg >= blogCountPg ? blogCountPg : endPg),
       pg: page,
+      blogTags: res.locals.blogTags,
     });
   });
 };
@@ -45,6 +46,7 @@ exports.get_essay = function(req, res, next) {
       startPg: countPg <= 5 ? 1 : (countPg - page <= 5 ? countPg - 5 : startPg),
       endPg: countPg <= 5 ? countPg : (endPg >= countPg ? countPg : endPg),
       pg: page,
+      blogTags: res.locals.blogTags,
     });
     //console.log(data[1]);
   });

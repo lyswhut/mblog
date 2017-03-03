@@ -11,7 +11,7 @@ var commentSchema = mongoose.Schema({
 	authorName: String,
 	authorImgUrl: String,
 	authorIp: String,
-	date: Date,
+	date: {type:Date,default:Date.now},
 	floor: Number,
 	ding: Number,
 	comment: String,

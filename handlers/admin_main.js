@@ -30,7 +30,7 @@ exports.post_addBlog = function(req, res, next) {
     blogText: req.body.blogText.trim()
   })(function (err, result) {
     if (err) return res.send(500, 'Error occurred: database error.');
-    console.log(result);
+    // console.log(result);
     return res.redirect(303, '/');
   });
 };

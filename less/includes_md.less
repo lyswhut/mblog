@@ -72,14 +72,57 @@
   .calendar {
     border-top: none;
   }
-  .blogHistory {
-    height: 250px;
+  h3 {
+    margin: 5px 0;
+    padding: 10px 3px;
+    font-size: 18px;
+    color: #666;
+    .border_bottom;
   }
   .blogTag {
-    height: 180px;
+    padding: 0 10px 10px;
+    .tagCt {
+      .clearfix();
+      >a {
+        color: #666;
+        display: block;
+        float: left;
+        padding: 5px 10px;
+        margin: 5px 0 0 5px;
+        border-radius: 3px;
+        &:link {
+          text-decoration: none;
+        }
+        &:hover {
+          text-decoration: none;
+          background: #eee;
+        }
+      }
+    }
+  }
+  .blogHistory {
+    padding: 0 10px 10px;
+    .historyCt {
+      .clearfix();
+      >a {
+        color: #666;
+        display: block;
+        float: left;
+        padding: 5px 10px;
+        margin: 5px 0 0 5px;
+        border-radius: 3px;
+        &:link {
+          text-decoration: none;
+        }
+        &:hover {
+          text-decoration: none;
+          background: #eee;
+        }
+      }
+    }
   }
   .newComment {
-    height: 250px;
+    padding: 0 10px 10px;
   }
 }
 

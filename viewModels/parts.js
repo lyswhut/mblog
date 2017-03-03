@@ -1,4 +1,5 @@
 var markdown = require("markdown-it")({langPrefix:'prettyprint linenums lang-'});
+var BlogInfo = require('../models/blogInfo.js');
 var BlogText = require('../models/blogText.js');
 var Comment = require('../models/comment.js');
 var Views = require('../models/views.js');
@@ -180,15 +181,15 @@ exports.insertComment = function (obj) {
           authorName: obj.authorName,
           authorImgUrl: obj.authorImgUrl,
           authorIp: obj.authorIp,
-          date: new Date(),
           ding: 0,
           comment: obj.comment,
           userAgent: obj.userAgent,
           replyComment: [],
         });
-        tempReplyComment = comments.replyComment;
-        comments.replyComment = '';
-        comments.replyComment = tempReplyComment;
+        comments.markModified('replyComment');
+        // tempReplyComment = comments.replyComment;
+        // comments.replyComment = '';
+        // comments.replyComment = tempReplyComment;
         comments.save(function (err, result) {
           if (err) return fn(err, null);
           fn(null, result);
@@ -271,13 +272,34 @@ exports.insertComment = function (obj) {
 
 
 
+// BlogText.find({display: true,tags:'代码高亮测试'},{title:1}).sort({_id: -1}).limit(6).exec(function (err, blogs) {
+  //console.log(blogs);
+// });
+
+// BlogText.find({"$and":[{"date":{"$gt":"2017-3-2 0:0:0"}},{"date":{"$lt":"2017-3-3 0:0:0"}}]},{title:1,date:1}).sort({_id: -1}).limit(6).exec(function (err, blogs) {
+//   console.log(blogs);
+// });
 
 
 
+// BlogInfo.find({},{tags:1},function (err, tags) {
+//   var aaa = ["散文","情感","测试文章","JavaScript","123"];
+//   var newtag = [];
+//   outer: for (var i = 0; i < aaa.length; i++) {
+//     inter: for (var j = 0; j < tags[0].tags.length; j++) {
+//       if (tags[0].tags[j] === aaa[i]) continue outer;
+//     }
+//     tags[0].tags.push(aaa[i]);
+//   }
+//   tags[0].save();
+// });
 
-
-
-
+// BlogInfo.find({},{tags:1},function (err, tags) {
+//   console.log(tags[0].tags);
+  // BlogText.find({display: true,tags:'代码高亮测试'},{title:1}).sort({_id: -1}).limit(6).exec(function (err, blogs) {
+  //   console.log(blogs);
+  // });
+// });
 
 
 
