@@ -5,10 +5,11 @@ var parts = require('../viewModels/parts.js');
 
 
 exports.get_home = function(req, res, next) {
-  var page = req.query.page && parseInt(req.query.page) || 1;
+  var page = req.query.page && parseInt(req.query.page) || 1,tag = null;
+  if (req.query.tag) tag = req.query.tag.trim();
   if (page > res.locals.blogCountPg) return next('route');
   var startPg = page-2,endPg = page+2,blogCountPg = res.locals.blogCountPg || 1;
-  home(page, function (err, data) {
+  home(tag,page, function (err, data) {
     if (err) return res.send(500, 'Error occurred: database error.');
     if (!data) return next('route');
     res.render('home', {

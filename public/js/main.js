@@ -26,7 +26,7 @@ $(function () {
 
 
   } else {//==================================================================================================================
-
+    blogListSubstr($('.listContent .blogText'),250);
 
 
 
@@ -35,7 +35,7 @@ $(function () {
 
   function blogListSubstr(elments,length) {
     elments.each( function(element) {
-      $(this).text($(this).text().substring(0, length) + '……');
+      if ($(this).text().length > length) $(this).text($(this).text().substring(0, length) + '……');
     });
   }
 

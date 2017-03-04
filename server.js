@@ -64,10 +64,11 @@ BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec
   global._BLOGCOUNT = blogs.length ? Math.ceil(blogs[0].count/6) : 0;
 });
 
+//缓存标签列表
 _BLOGTAGS = [];
 var BlogInfo = require('./models/blogInfo.js');
 BlogInfo.find({},{tags:1},function (err, tags) {
-  global._BLOGTAGS = tags[0].tags;
+  global._BLOGTAGS = tags.length ? tags[0].tags : [];
 });
 
 //var static = require('./lib/static.js');

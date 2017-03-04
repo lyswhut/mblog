@@ -3,8 +3,12 @@ var BlogText = require('../models/blogText.js');
 var getDate = require('../lib/getDate.js');
 var Views = require('../models/views.js');
 
-module.exports = function(page,fn) {
-  BlogText.find({display: true}).sort({_id: -1}).skip((page-1)*6).limit(6).exec(function (err, blogs) {
+module.exports = function(tag,page,fn) {
+  var query = {
+    display: true
+  };
+  if (tag) query.tags = tag;
+  BlogText.find(query).sort({_id: -1}).skip((page-1)*6).limit(6).exec(function (err, blogs) {
     if (err) return fn(err,null);
     // if (err) return res.send(500, 'Error occurred: database error.');
     var data = [];
@@ -16,7 +20,7 @@ module.exports = function(page,fn) {
         date: getDate(blog.date, false),
         view: blog.view,
         ding: blog.ding,
-        blogDesc: blog.blogDesc.substring(0, 250)+'……',
+        blogDesc: blog.blogDesc,
         tags: blog.tags,
       };
     }));

@@ -24,7 +24,7 @@ exports.getBlogList = function(page,fn) {
         view: blog.view,
         ding: blog.ding,
         textType: blog.textType,
-        blogDesc: blog.blogDesc.substring(0, 250)+'……',
+        blogDesc: blog.blogDesc,
         tags: blog.tags,
       };
     }));
