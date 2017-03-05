@@ -5,6 +5,7 @@ var admin_main = require('./handlers/admin_main.js');
 module.exports = function (mainApp, adminApp, apiApp) {
   //main routes
   mainApp.get('/', main_main.get_home);
+  mainApp.get('/getInfo', main_main.get_getInfo);
   mainApp.get('/essay/:id', main_main.get_essay);
   mainApp.post('/essay', main_main.post_essay);
 

@@ -26,6 +26,14 @@ exports.get_home = function(req, res, next) {
   });
 };
 
+exports.get_getInfo = function(req, res, next) {
+  var year = req.query.year,month = req.query.month;
+  if (year && year.trim()) {
+    parts.getCalendarData(year,month)(function (err, data) {
+      res.json(data);
+    });
+  }
+};
 
 
 exports.get_essay = function(req, res, next) {

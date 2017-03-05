@@ -32,6 +32,31 @@ exports.getBlogList = function(page,fn) {
   });
 };
 
+exports.getCalendarData = function (_year,_month) {
+  return function (fn) {
+    var year = parseInt(_year),month = parseInt(_month);
+    var gt = new Date(year+'-'+month+'-1 0:0:0');
+    var lt = new Date(year+'-'+(month+1)+'-1 0:0:0');
+    BlogText.aggregate([
+      {$match: {display:true,"$and":[{date:{"$gt":gt}},{date:{"$lt":lt}}]}},
+      {$project: {title:'$title', time: {$substr: ['$date',0,10]}}},
+      {$group: {_id:'$time', count: {$sum:1}}},
+      {$sort:{_id: 1}}
+      ]).exec(function (err, result) {
+        if (err) return fn(err, null);
+        var data = result.map(function (day) {
+          return {
+            date: day._id,
+            badge: false,
+            title: day._id,
+            body: day._id+'更新了' + day.count + '篇文章',
+            footer: '点击查看',
+          };
+        });
+        fn(null,data);
+    });
+  };
+};
 
 /**
  * 获取博文内容
@@ -302,7 +327,14 @@ exports.insertComment = function (obj) {
 // });
 
 
-
+// BlogText.aggregate([
+//   {$match: {display:true}},
+//   {$project: {title:'$title', time: {$substr: ['$date',0,10]}}},
+//   {$group: {_id:'$time', count: {$sum:1}}},
+//   {$sort:{_id: 1}}
+//   ]).exec(function (err, res) {
+//     console.log(res);
+// });
 
 
 

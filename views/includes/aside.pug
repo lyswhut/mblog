@@ -11,7 +11,12 @@
     script(src=staticUrl+"/vendor/zabuto_calendar.js")
     script.
       $(document).ready(function () {
-          $(".calendar").zabuto_calendar();
+          $(".calendar").zabuto_calendar({
+          ajax: {
+            url: '/getInfo',
+            modal: true
+          }
+          });
       });
   .aside_listContent.blogTag
     h3 文章标签

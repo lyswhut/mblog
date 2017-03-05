@@ -64,12 +64,36 @@ BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec
   global._BLOGCOUNT = blogs.length ? Math.ceil(blogs[0].count/6) : 0;
 });
 
+// BlogText.aggregate([
+//   {$match: {display:true}},
+//   {$project: {title:'$title', time: {$substr: ['$date',0,10]}}},
+//   {$group: {_id:'$time', count: {$sum:1}}},
+//   {$sort:{_id: 1}}
+//   ]).exec(function (err, res) {
+//     console.log(res.map(function (day) {
+//       return {
+//         date: day._id,
+//         badge: false,
+//         title: day._id,
+//         body: day._id+'更新了' + day.count + '篇文章',
+//         footer: '点击查看',
+//       };
+//     }));
+// });
+
+
 //缓存标签列表
 _BLOGTAGS = [];
 var BlogInfo = require('./models/blogInfo.js');
 BlogInfo.find({},{tags:1},function (err, tags) {
   global._BLOGTAGS = tags.length ? tags[0].tags : [];
 });
+
+
+
+
+
+
 
 //var static = require('./lib/static.js');
 app.use(function(req, res, next) {
