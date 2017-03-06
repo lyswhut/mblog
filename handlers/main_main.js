@@ -28,11 +28,9 @@ exports.get_home = function(req, res, next) {
 
 exports.get_getInfo = function(req, res, next) {
   var year = req.query.year,month = req.query.month;
-  if (year && year.trim()) {
-    parts.getCalendarData(year,month)(function (err, data) {
-      res.json(data);
-    });
-  }
+  if (year && year.trim())  return parts.getCalendarData(year,month)(function (err, data) {res.json(data);});
+
+  return next('route');
 };
 
 

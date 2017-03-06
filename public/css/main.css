@@ -6724,8 +6724,14 @@ button.close {
 .prettyprint {
   background-color: #FFFAEA !important;
   color: #888;
-  padding: 10px;
-  border: 1px solid #E1E1E8 !important;
+}
+.prettyprint ol {
+  margin: 5px 0;
+  padding-left: 30px;
+}
+.prettyprint li {
+  border-left: 1px solid #ccc;
+  padding-left: 8px;
 }
 .prettyprint .pln {
   color: #bd3613;
