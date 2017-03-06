@@ -75,7 +75,6 @@ BlogText.aggregate([
   ]).exec(function (err, times) {
     if (err) return console.log('获取归档日期失败：'+ err);
     if (times.length) global._BLOGTIME = times;
-    console.log(times);
 });
 // BlogText.aggregate([
 //   {$match: {display:true}},

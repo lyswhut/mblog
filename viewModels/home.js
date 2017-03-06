@@ -33,7 +33,7 @@ module.exports = function(page,query,fn) {
           tags: blog.tags,
         };
       }));
-      data.push(Math.ceil(count[0].count/6));
+      data.push(count.length ? Math.ceil(count[0].count/6) : 1);
       fn(null,data);
     });
   });
