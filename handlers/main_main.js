@@ -5,13 +5,33 @@ var parts = require('../viewModels/parts.js');
 
 
 exports.get_home = function(req, res, next) {
-  var page = req.query.page && parseInt(req.query.page) || 1,tag = null;
-  if (req.query.tag) tag = req.query.tag.trim();
+  var query = {display: true};
+  var page = req.query.page && parseInt(req.query.page) || 1;
+  if (req.query.tag) query.tags = req.query.tag.trim();
+  if (req.query.time) {
+    var time,gt,lt;
+    time = req.query.time.trim();
+    if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(time)) {
+      gt = new Date(time +' 0:0:0');
+      lt = new Date(time +' 0:0:0');
+      lt.setDate(lt.getDate()+1);
+      query.$and = [{date:{'$gt':gt}},{date:{'$lt':lt}}];
+    } else if (/^\d{4}-\d{1,2}$/.test(time)) {
+      gt = new Date(time+'-1 0:0:0');
+      lt = new Date(time+'-1 0:0:0');
+      lt.setMonth(lt.getMonth()+1);
+      query.$and = [{date:{'$gt':gt}},{date:{'$lt':lt}}];
+    }
+  }
   if (page > res.locals.blogCountPg) return next('route');
-  var startPg = page-2,endPg = page+2,blogCountPg = res.locals.blogCountPg || 1;
-  home(tag,page, function (err, data) {
+  var startPg = page-2,endPg = page+2;
+  home(page, query, function (err, data) {
     if (err) return res.send(500, 'Error occurred: database error.');
     if (!data) return next('route');
+    var urlQuery = '';
+    if (query.tags) urlQuery = '&tag=' + query.tags;
+    if (time) urlQuery += '&time=' + time;
+    blogCountPg = !urlQuery ? (res.locals.blogCountPg || 1) : data[1];
     res.render('home', {
       _csrfToken: req.csrfToken(),
       navCode: 1,
@@ -21,7 +41,9 @@ exports.get_home = function(req, res, next) {
       startPg: blogCountPg <= 5 ? 1 : (blogCountPg - page <= 5 ? blogCountPg - 5 : startPg),
       endPg: blogCountPg <= 5 ? blogCountPg : (endPg >= blogCountPg ? blogCountPg : endPg),
       pg: page,
+      urlQuery: urlQuery,
       blogTags: res.locals.blogTags,
+      blogTimes: res.locals.blogTimes,
     });
   });
 };
@@ -54,6 +76,7 @@ exports.get_essay = function(req, res, next) {
       endPg: countPg <= 5 ? countPg : (endPg >= countPg ? countPg : endPg),
       pg: page,
       blogTags: res.locals.blogTags,
+      blogTimes: res.locals.blogTimes,
     });
     //console.log(data[1]);
   });

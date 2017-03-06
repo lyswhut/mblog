@@ -1,5 +1,6 @@
 $(function () {
   var $window = $(window), windowX = $window.width(),windowY = $window.height();
+  $('[data-toggle="tooltip"]').tooltip();
   $window.resize(function () {
     windowX = $window.width();
     windowY = $window.height();

@@ -39,7 +39,7 @@ exports.getCalendarData = function (_year,_month) {
     var lt = new Date(year+'-'+(month+1)+'-1 0:0:0');
     BlogText.aggregate([
       {$match: {display:true,"$and":[{date:{"$gt":gt}},{date:{"$lt":lt}}]}},
-      {$project: {title:'$title', time: {$substr: ['$date',0,10]}}},
+      {$project: {time: {$substr: ['$date',0,10]}}},
       {$group: {_id:'$time', count: {$sum:1}}},
       {$sort:{_id: 1}}
       ]).exec(function (err, result) {

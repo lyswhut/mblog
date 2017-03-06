@@ -3,28 +3,39 @@ var BlogText = require('../models/blogText.js');
 var getDate = require('../lib/getDate.js');
 var Views = require('../models/views.js');
 
-module.exports = function(tag,page,fn) {
-  var query = {
-    display: true
+module.exports = function(page,query,fn) {
+  var find = {
+    title: 1,
+    commentCount: 1,
+    date: 1,
+    view: 1,
+    ding: 1,
+    blogDesc: 1,
+    tags: 1
   };
-  if (tag) query.tags = tag;
-  BlogText.find(query).sort({_id: -1}).skip((page-1)*6).limit(6).exec(function (err, blogs) {
+  BlogText.aggregate([
+    {$match:query},
+    {$group: {_id:null, count: {$sum:1}}},
+  ]).exec(function (err, count) {
     if (err) return fn(err,null);
-    // if (err) return res.send(500, 'Error occurred: database error.');
-    var data = [];
-    data.push(blogs.map(function (blog) {
-      return {
-        id: blog._id,
-        title: blog.title,
-        commentCount: blog.commentCount,
-        date: getDate(blog.date, false),
-        view: blog.view,
-        ding: blog.ding,
-        blogDesc: blog.blogDesc,
-        tags: blog.tags,
-      };
-    }));
-    fn(null,data);
+    BlogText.find(query,find).sort({_id: -1}).skip((page-1)*6).limit(6).exec(function (err, blogs) {
+      if (err) return fn(err,null);
+      var data = [];
+      data.push(blogs.map(function (blog) {
+        return {
+          id: blog._id,
+          title: blog.title,
+          commentCount: blog.commentCount,
+          date: getDate(blog.date, false),
+          view: blog.view,
+          ding: blog.ding,
+          blogDesc: blog.blogDesc,
+          tags: blog.tags,
+        };
+      }));
+      data.push(Math.ceil(count[0].count/6));
+      fn(null,data);
+    });
   });
 };
 

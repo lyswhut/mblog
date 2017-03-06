@@ -61,9 +61,22 @@ app.use(express.static(__dirname + '/public'));
 _BLOGCOUNT = 0;
 var BlogText = require('./models/blogText.js');
 BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec(function (err, blogs) {
-  global._BLOGCOUNT = blogs.length ? Math.ceil(blogs[0].count/6) : 0;
+  if (err) return console.log('获取博文总数失败：'+ err);
+  if (blogs.length) global._BLOGCOUNT = Math.ceil(blogs[0].count/6);
 });
 
+//缓存归档文章日期
+_BLOGTIME = [];
+BlogText.aggregate([
+  {$match: {display:true}},
+  {$project: {time: {$substr: ['$date',0,7]}}},
+  {$group: {_id:'$time', count: {$sum:1}}},
+  {$sort:{_id: 1}}
+  ]).exec(function (err, times) {
+    if (err) return console.log('获取归档日期失败：'+ err);
+    if (times.length) global._BLOGTIME = times;
+    console.log(times);
+});
 // BlogText.aggregate([
 //   {$match: {display:true}},
 //   {$project: {title:'$title', time: {$substr: ['$date',0,10]}}},
@@ -86,10 +99,9 @@ BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec
 _BLOGTAGS = [];
 var BlogInfo = require('./models/blogInfo.js');
 BlogInfo.find({},{tags:1},function (err, tags) {
-  global._BLOGTAGS = tags.length ? tags[0].tags : [];
+  if (err) return console.log('获取标签列表失败：'+ err);
+  if (tags.length) global._BLOGTAGS = tags[0].tags;
 });
-
-
 
 
 
@@ -108,6 +120,7 @@ app.use(function(req, res, next) {
 
   if (!res.locals.blogCountPg) res.locals.blogCountPg = global._BLOGCOUNT;
   if (!res.locals.blogTags) res.locals.blogTags = global._BLOGTAGS;
+  if (!res.locals.blogTimes) res.locals.blogTimes = global._BLOGTIME;
 
   res.locals.time = new Date();
   next();

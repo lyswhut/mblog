@@ -275,7 +275,7 @@ $.fn.zabuto_calendar = function (options) {
                         var dateId = $calendarElement.attr('id') + '_' + dateAsString(year, month, currDayOfMonth);
                         var dayId = dateId + '_day';
 
-                        var $dayElement = $('<div id="' + dayId + '" class="day" >' + currDayOfMonth + '</div>');
+                        var $dayElement = $('<a id="' + dayId + '" class="day" >' + currDayOfMonth + '</a>');
                         $dayElement.data('day', currDayOfMonth);
 
                         if ($calendarElement.data('showToday') === true) {
@@ -412,7 +412,7 @@ $.fn.zabuto_calendar = function (options) {
                     $dowElement.data('hasEvent', true);
 
                     if (typeof(value.title) !== 'undefined') {
-                        $dowElement.attr('title', value.title);
+                        $dayElement.attr('title', value.body);
                     }
 
                     if (typeof(value.classname) === 'undefined') {
@@ -437,14 +437,17 @@ $.fn.zabuto_calendar = function (options) {
                         }
 
                         if (modalUse === true) {
-                            $dowElement.addClass('event-clickable');
+                            $dayElement.attr('data-toggle', 'ralendarTooltip');
+                            $dayElement.attr('href', "/?time=" + value.date);
+                            $('[data-toggle="ralendarTooltip"]').tooltip();
+                            // $dowElement.addClass('event-clickable');
 
-                            var $modalElement = createModal(id, value.title, value.body, value.footer);
-                            $('body').append($modalElement);
+                            // var $modalElement = createModal(id, value.title, value.body, value.footer);
+                            // $('body').append($modalElement);
 
-                            $('#' + id).click(function () {
-                                $('#' + id + '_modal').modal();
-                            });
+                            // $('#' + id).click(function () {
+                            //     $('#' + id + '_modal').modal();
+                            // });
                         }
                     }
                 });

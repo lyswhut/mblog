@@ -7,7 +7,6 @@
       p Github：https://github.com/stsky
 
   .aside_listContent.calendar
-    link(rel="stylesheet" href=staticUrl+"/vendor/zabuto_calendar.min.css")
     script(src=staticUrl+"/vendor/zabuto_calendar.js")
     script.
       $(document).ready(function () {
@@ -26,10 +25,8 @@
   .aside_listContent.blogHistory
     h3 博文归档
     .historyCt
-      a(href="javascript:;") 2017年3月
-      a(href="javascript:;") 2017年4月
-      a(href="javascript:;") 2017年5月
-      a(href="javascript:;") 2017年6月
+      each time in blogTimes
+        a(href="/?time="+ time._id data-toggle="tooltip" title="本月更新了"+time.count+"篇文章") #{time._id}
   .aside_listContent.newComment
     h3 最新评论
     .newConnentCt
