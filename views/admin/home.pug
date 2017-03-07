@@ -1,8 +1,7 @@
 extends layout.pug
 block body
-  h1 admin home!
-  if msg
-    h2 发表成功！
+  h1 Hi, #[strong admin],welcome to the Admin home!
+  a(href="/logout") 退出登录
   .list-group
     a.list-group-item(href="/addBlog") 添加文章
     a.list-group-item(href="/editBlog") 编辑文章

@@ -134,7 +134,10 @@ app.use(function(req, res, next) {
 //   next();
 // });
 
-
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 /*main app*/
 var mainApp = express();
@@ -145,12 +148,20 @@ mainApp.disable('x-powered-by');
 if (!config.minHtml) mainApp.locals.pretty = true;
 
 //设置cookie与session
-mainApp.use(require('cookie-parser')(config.credentials.cookieSecret));
-mainApp.use(require('express-session')());
-
+mainApp.use(cookieParser(config.credentials.cookieSecret));
+mainApp.use(session({
+  store: new RedisStore({
+    host: config.redisHost,
+    prot: config.redisProt,
+    db: config.redisUserSessionDB
+  }),
+  secret: config.credentials.cookieSecret,
+  resave: false,
+  saveUninitialized:true
+}));
 
 //防止跨站伪造请求
-mainApp.use(require('body-parser').urlencoded({
+mainApp.use(bodyParser.urlencoded({
   extended: false
 }));
 mainApp.use(require('csurf')());
@@ -166,12 +177,20 @@ adminApp.disable('x-powered-by');
 if (!config.minHtml) adminApp.locals.pretty = true;
 
 //设置cookie与session
-adminApp.use(require('cookie-parser')(config.credentials.cookieSecret));
-adminApp.use(require('express-session')());
-
+adminApp.use(cookieParser(config.credentials.cookieSecret));
+adminApp.use(session({
+  store: new RedisStore({
+    host: config.redisHost,
+    prot: config.redisProt,
+    db: config.redisAdminSessionDB
+  }),
+  secret: config.credentials.cookieSecret,
+  resave: false,
+  saveUninitialized:true
+}));
 
 //防止跨站伪造请求
-adminApp.use(require('body-parser').urlencoded({
+adminApp.use(bodyParser.urlencoded({
   extended: false
 }));
 adminApp.use(require('csurf')());

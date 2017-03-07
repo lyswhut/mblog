@@ -11,6 +11,11 @@ module.exports = function (mainApp, adminApp, apiApp) {
 
 
   adminApp.get('/', admin_main.get_home);
+
+  adminApp.get('/login', admin_main.get_login);
+  adminApp.post('/login', admin_main.post_login);
+  adminApp.get('/logout', admin_main.get_logout);
+
   adminApp.get('/addBlog', admin_main.get_addBlog);
   adminApp.post('/addBlog', admin_main.post_addBlog);
 
