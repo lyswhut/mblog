@@ -12,7 +12,7 @@ var blogTextSchema = mongoose.Schema({
 	tags: [String],
 	display: Boolean,
 	view: Number,
-  ding: Number,
+  ding: [String],
   blogDesc: String,
   textType: Number,
 	blogText: String,

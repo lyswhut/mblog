@@ -13,7 +13,7 @@ var commentSchema = mongoose.Schema({
 	authorIp: String,
 	date: {type:Date,default:Date.now},
 	floor: Number,
-	ding: Number,
+	ding: [String],
 	comment: String,
 	userAgent: String,
 	replyComment: [],

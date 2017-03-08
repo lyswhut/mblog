@@ -20,7 +20,7 @@ module.exports = function (blogTextId,page,ip) {
         commentAdCount: blog.commentAdCount,
         date: getDate(blog.date, false),
         view: blog.view,
-        ding: blog.ding,
+        ding: blog.ding.length,
         text: text,
         tags: blog.tags,
       });
@@ -47,7 +47,7 @@ module.exports = function (blogTextId,page,ip) {
             authorImgUrl : comm.authorImgUrl,
             date : getDate(comm.date, true),
             floor : comm.floor,
-            ding : comm.ding,
+            ding : comm.ding.length,
             comment : comm.comment,
             replyComment: cm
           };
@@ -91,7 +91,7 @@ function forComment(comm) {
       authorImgUrl : comm.authorImgUrl,
       date : getDate(comm.date, true),
       floor : comm.floor,
-      ding : comm.ding,
+      ding : comm.ding.length,
       comment : comm.comment,
       replyComment: cm
     };

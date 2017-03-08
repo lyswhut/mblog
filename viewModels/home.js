@@ -28,7 +28,7 @@ module.exports = function(page,query,fn) {
           commentCount: blog.commentCount,
           date: getDate(blog.date, false),
           view: blog.view,
-          ding: blog.ding,
+          ding: blog.ding.length,
           blogDesc: blog.blogDesc,
           tags: blog.tags,
         };

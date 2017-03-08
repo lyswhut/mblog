@@ -106,24 +106,38 @@ exports.get_essay = function(req, res, next) {
 exports.post_essay = function (req, res, next) {
   var ip = req.headers['x-real-ip'] ? req.headers['x-real-ip'] : req.ip.replace(/::ffff:/, '');
   var horizontal = req.body.horizontal ? req.body.horizontal.split(',') : null;
-  parts.insertComment({
-    blogTextId: req.body.blogTextId,
-    parentId: req.body.commentId,
-    vertical: parseInt(req.body.floor),
-    horizontal: horizontal,
-    authorType: 'visitor',
-    authorName: req.body.userName,
-    authorImgUrl: '/img/text.png',
-    authorIp: ip,
-    comment: req.body.comment,
-    userAgent: req.headers['user-agent'],
-  })(function (err, result) {
-    if (err) return res.send(500, 'Error occurred: database error.');
-    if (!result) return next('route');
-    return res.redirect(303, '/essay/'+req.body.blogTextId);
-  });
-};
+  var userName = req.body.userName ? req.body.userName.trim() : null;
+  var floor = req.body.floor ? parseInt(req.body.floor) : null;
+  if (userName) {
+    parts.insertComment({
+      blogTextId: req.body.blogTextId,
+      parentId: req.body.commentId,
+      vertical: req.body.floor ? parseInt(req.body.floor) : null,
+      horizontal: horizontal,
+      authorType: 'visitor',
+      authorName: userName,
+      authorImgUrl: '/img/text.png',
+      authorIp: ip,
+      comment: req.body.comment.trim(),
+      userAgent: req.headers['user-agent'],
+    })(function (err, result) {
+      if (err) return res.send(500, 'Error occurred: database error.');
+      if (!result) return next('route');
+      return res.redirect(303, '/essay/'+req.body.blogTextId);
+    });
+  } else {
+    parts.addDing({
+      blogTextId: req.body.blogTextId,
+      parentId: req.body.commentId,
+      horizontal: horizontal,
+      authorIp: ip,
+    })(function (err, result) {
+      if (err) return res.send(500, 'Error occurred: add ding error.');
+      res.send(result);
+    });
+  }
 
+};
 
 
 

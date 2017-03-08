@@ -52,8 +52,9 @@ $(function () {
 
 
 
-  //评论回复
+  // 当评论容器存在时
   if ($('.blogcommentCt').length) {
+    //评论回复
     $('.blogcommentCt').on('click', '.reply', function (e) {
       if ($(this).closest('.comment').children('.addCommentCt').length !== 0) return;
       var _this = $(this);
@@ -74,8 +75,34 @@ $(function () {
       });
     return false;
     });
-  }
 
+    //顶评论
+    $('.blogcommentCt').on('click', '.ding', function (e) {
+      var $_this = $(this);
+      if (($_this).css('cursor') == 'default') return;
+      $_this.css('cursor','default');
+      var $dingNum = $_this.children('.dingNum'),$reply = $_this.siblings('.reply'),$form = $('.addCommentCt form');
+      var url = $form.attr('action'),method = $form.attr('method'),
+          commentId = $reply.attr('data-commentId'),horizontal = $reply.attr('data-horizontal'),
+          blogTextId = $form.children('input[name="blogTextId"]').val(),_csrf = $form.children('input[name="_csrf"]').val();
+      $.ajax({
+        url: url,
+        method: method,
+        data: {
+          _csrf: _csrf,
+          blogTextId: blogTextId,
+          commentId: commentId,
+          horizontal: horizontal,
+        }
+      }).done(function (data) {
+        if (data) {
+          var ding = parseInt($dingNum.text());
+          $dingNum.text(++ding);
+        }
+      });
+    });
+
+  }
 
 
 

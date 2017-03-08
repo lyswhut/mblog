@@ -22,7 +22,7 @@ exports.getBlogList = function(page,fn) {
         commentCount: blog.commentCount,
         date: getDate(blog.date, false),
         view: blog.view,
-        ding: blog.ding,
+        ding: blog.ding.length,
         textType: blog.textType,
         blogDesc: blog.blogDesc,
         tags: blog.tags,
@@ -78,7 +78,7 @@ exports.getBlogText = function (blogTextId, ip) {
       data.commentAdCount = blog.commentAdCount;
       data.date = getDate(blog.date, false);
       data.view = blog.view;
-      data.ding = blog.ding;
+      data.ding = blog.ding.length;
       data.text = text;
       data.tags = blog.tags;
       fn(null, data);
@@ -130,7 +130,7 @@ exports.getComment = function (blogTextId, page) {
           authorImgUrl : comm.authorImgUrl,
           date : getDate(comm.date, true),
           floor : comm.floor,
-          ding : comm.ding,
+          ding : comm.ding.length,
           comment : comm.comment,
           replyComment: cm
         };
@@ -152,7 +152,7 @@ exports.getComment = function (blogTextId, page) {
         authorImgUrl : comm.authorImgUrl,
         date : getDate(comm.date, true),
         floor : comm.floor,
-        ding : comm.ding,
+        ding : comm.ding.length,
         comment : comm.comment,
         replyComment: cm
       };
@@ -206,7 +206,7 @@ exports.insertComment = function (obj) {
           authorName: obj.authorName,
           authorImgUrl: obj.authorImgUrl,
           authorIp: obj.authorIp,
-          ding: 0,
+          ding: [],
           comment: obj.comment,
           userAgent: obj.userAgent,
           replyComment: [],
@@ -238,7 +238,7 @@ exports.insertComment = function (obj) {
           authorIp: obj.authorIp,
           date: new Date(),
           floor: floor,
-          ding: 0,
+          ding: [],
           comment: obj.comment,
           userAgent: obj.userAgent,
           replyComment: [],
@@ -251,6 +251,41 @@ exports.insertComment = function (obj) {
         });
       });
     }
+  };
+};
+
+/**
+ * 插入评论
+ * @param  {object} obj {
+ *     obj.blogTextId
+ *     obj.parentId
+ *     [obj.horizontal]
+ *     obj.authorIp
+ * }
+ * return {Function(err, result)}
+ */
+exports.addDing = function (obj) {
+  return function (fn) {
+    Comment.findById(obj.parentId,function (err, comments) {
+      if (err) return fn(err, null);
+      if (!comments) return fn(null, false);
+      var comment = comments;
+      var tempReplyComment = comments.replyComment;
+      for(var i = 1, length1 = obj.horizontal.length; i < length1; i++){
+        comment = tempReplyComment[obj.horizontal[i]];
+        tempReplyComment = tempReplyComment[obj.horizontal[i]].replyComment;
+      }
+      if (comment.ding.indexOf(obj.authorIp) > -1) return fn(null, false);
+      comment.ding.push(obj.authorIp);
+      if (obj.horizontal.length > 1) comments.markModified('replyComment');
+      comments.save(function (err, result) {
+        if (err) return fn(err, null);
+        fn(null, true);
+        BlogText.update({_id:result.blogTextId},{$inc: {commentReply: 1}},function (err) {
+          if (err) console.log('增加顶出错：'+ err);
+        });
+      });
+    });
   };
 };
 // exports.insertComment = function (obj) {
