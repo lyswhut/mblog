@@ -5,7 +5,14 @@ exports.verification = function (ip) {
     LoginRecord.find({loginIp: ip},{failed:1},function (err, result) {
       if (err) return fn(err, null);
       if (result.length) {
-        var length = result[0].failed.length;
+        var history = result[0].failed;
+        for (var i = 0; i < history.length; i++) {
+          if(history[0].getTime()+86400000 < new Date().getTime()) {
+            history.shift();
+          }
+        }
+        result[0].save(function (err) {if (err) console.log('登录验证数据保存失败'+err);});
+        var length = history.length;
         if (length >= 5) return fn(null, {result:false});
         fn(null, {result:true, num: 5 - length});
       } else {
@@ -33,7 +40,7 @@ exports.addloginLog = function (obj) {
   } else {
     LoginRecord.update({loginIp:obj.ip},{
       $push: {
-        failed: 1,
+        failed: new Date(),
         history: { userName: obj.userName, password: obj.password, userAgent: obj.userAgent, loginTime: new Date(), result: obj.result}
       }
     },function (err, result) {

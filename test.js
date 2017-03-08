@@ -79,3 +79,7 @@ console.log(u);
 console.log(d);*/
 
 
+
+var s=['192.168.1.1','192.168.1.2','192.168.1.3'];
+var u=s.shift();
+console.log(s);
