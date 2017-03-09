@@ -33,6 +33,9 @@ switch (app.get('env')) {
     throw new Error('Unknown execution environment:' + app.get('env'));
 }
 
+//数据缓存
+require('./viewModels/dataCache.js')();
+
 
 /*通用设置*/
 // var pug = require('pug').create({
@@ -47,8 +50,6 @@ app.engine('handlebars', require('pug').render);
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-
-
 //app.use(require('body-parser')());
 
 if (!config.x_powered_by) app.disable('x-powered-by');
@@ -57,69 +58,22 @@ app.set('port', process.env.PORT || config.port);
 
 app.use(express.static(__dirname + '/public'));
 
-// 缓存博文总数
-_BLOGCOUNT = 0;
-var BlogText = require('./models/blogText.js');
-BlogText.aggregate().match({display:true}).group({_id:null,count:{$sum:1}}).exec(function (err, blogs) {
-  if (err) return console.log('获取博文总数失败：'+ err);
-  if (blogs.length) global._BLOGCOUNT = Math.ceil(blogs[0].count/6);
-});
-
-//缓存归档文章日期
-_BLOGTIME = [];
-BlogText.aggregate([
-  {$match: {display:true}},
-  {$project: {time: {$substr: ['$date',0,7]}}},
-  {$group: {_id:'$time', count: {$sum:1}}},
-  {$sort:{_id: 1}}
-  ]).exec(function (err, times) {
-    if (err) return console.log('获取归档日期失败：'+ err);
-    if (times.length) global._BLOGTIME = times;
-});
-// BlogText.aggregate([
-//   {$match: {display:true}},
-//   {$project: {title:'$title', time: {$substr: ['$date',0,10]}}},
-//   {$group: {_id:'$time', count: {$sum:1}}},
-//   {$sort:{_id: 1}}
-//   ]).exec(function (err, res) {
-//     console.log(res.map(function (day) {
-//       return {
-//         date: day._id,
-//         badge: false,
-//         title: day._id,
-//         body: day._id+'更新了' + day.count + '篇文章',
-//         footer: '点击查看',
-//       };
-//     }));
-// });
-
-
-//缓存标签列表
-_BLOGTAGS = [];
-var BlogInfo = require('./models/blogInfo.js');
-BlogInfo.find({},{tags:1},function (err, tags) {
-  if (err) return console.log('获取标签列表失败：'+ err);
-  if (tags.length) global._BLOGTAGS = tags[0].tags;
-});
-
-
 
 
 
 //var static = require('./lib/static.js');
 app.use(function(req, res, next) {
-  res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+  if (!res.locals.showTests) res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+  if (!res.locals.serverDomain) res.locals.serverDomain = config.serverDomain;
+  if (!res.locals.staticUrl) res.locals.staticUrl = config.staticUrl;//静态资源地址设置
+  if (!res.locals.blogName) res.locals.blogName = config.blogName;
 
-  res.locals.serverDomain = config.serverDomain;
 
-  //静态资源地址设置
-  res.locals.staticUrl = config.staticUrl;
+  if (!res.locals.blogNavs) res.locals.blogNavs = global.BlogInfo.blogNavs;
+  if (!res.locals.blogCountPg) res.locals.blogCountPg = global.BlogInfo.blogAllCount;
+  if (!res.locals.blogTags) res.locals.blogTags = global.BlogInfo.blogTags;
+  if (!res.locals.blogTimes) res.locals.blogTimes = global.BlogInfo.blogHistoryTime;
 
-  res.locals.blogName = config.blogName;
-
-  if (!res.locals.blogCountPg) res.locals.blogCountPg = global._BLOGCOUNT;
-  if (!res.locals.blogTags) res.locals.blogTags = global._BLOGTAGS;
-  if (!res.locals.blogTimes) res.locals.blogTimes = global._BLOGTIME;
 
   res.locals.time = new Date();
   next();

@@ -9,16 +9,9 @@ var mongoose = require('mongoose');
   // minHtml: false
 
 var blogInfoSchema = mongoose.Schema({
-  blogName: String,
-  serverDomain: String,
-  port: Number,
-  staticUrl: String,
-  x_powered_by: Boolean,
-  minHtml: Boolean,
-  navs: [String],
-  tags: [String]
+  blogNavs: [String],
+  blogTags: [String]
 });
-
 
 // blogTextSchema.methods.getComments = function () {
 //  return Comment.find({'blogTextId' : this._id, display: true}).sort({_id: -1}).skip(0).limit(5);
@@ -27,17 +20,11 @@ var blogInfoSchema = mongoose.Schema({
 
 var BlogInfoSchema = mongoose.model('blogInfo', blogInfoSchema);
 
-BlogInfoSchema.find(function(err, info) {
-  if (info.length) return;
+BlogInfoSchema.find(function(err, infos) {
+  if (infos.length) return;
   new BlogInfoSchema({
-    blogName: '寂静天空',
-    serverDomain: '192.168.1.200',
-    port: 80,
-    staticUrl: '',
-    x_powered_by: false,
-    minHtml: false,
-    navs: ['首页', '学习笔记'],
-    tags: []
+    blogNavs: ['首页', '学习笔记'],
+    blogTags: ["散文", "测试文章", "JavaScript", "Node.js", "dataBase", "代码高亮测试", "情感", "情感散文", "jQuery"],
   }).save();
 });
 

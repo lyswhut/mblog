@@ -5,6 +5,7 @@ var AutoIncrement = require('mongoose-sequence');
 var blogTextSchema = mongoose.Schema({
 	title: String,
 	author: String,
+  blogType: String,
   commentCount: Number,
   commentReply: Number,
   commentAdCount: Number,
