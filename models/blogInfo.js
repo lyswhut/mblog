@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
   // minHtml: false
 
 var blogInfoSchema = mongoose.Schema({
+  admins: [],
   blogNavs: [String],
   blogTags: [String]
 });
@@ -23,6 +24,7 @@ var BlogInfoSchema = mongoose.model('blogInfo', blogInfoSchema);
 BlogInfoSchema.find(function(err, infos) {
   if (infos.length) return;
   new BlogInfoSchema({
+    admins: [{user: 'admin',password: 'admin'}],//初始化管理员账号
     blogNavs: ['首页', '学习笔记'],
     blogTags: ["散文", "测试文章", "JavaScript", "Node.js", "dataBase", "代码高亮测试", "情感", "情感散文", "jQuery"],
   }).save();

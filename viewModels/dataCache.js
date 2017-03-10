@@ -12,6 +12,10 @@ module.exports = function () {
       blogNavs: info.blogNavs,//缓存导航
       blogTags: info.blogTags//缓存标签列表
     };
+    global.BlogInfo.blogAdminUser = {};
+    for (var i = 0; i < info.admins.length; i++) {//缓存管理员用户
+      global.BlogInfo.blogAdminUser[info.admins[i].user] = info.admins[i].password;
+    }
   });
 
 

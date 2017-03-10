@@ -27,7 +27,7 @@ switch (app.get('env')) {
     mongoose.connect(config.credentials.mongo.development.connectionString, opts);
     break;
   case 'production':
-    mongoose.connect(config.credentials.mongo.production.connetcionString, opts);
+    mongoose.connect(config.credentials.mongo.production.connectionString, opts);
     break;
   default:
     throw new Error('Unknown execution environment:' + app.get('env'));
@@ -161,18 +161,25 @@ apiApp.disable('x-powered-by');
 /*虚拟主机*/
 var vhost = require('vhost');
 
-app.use(vhost('www.abc.com', mainApp));
-app.use(vhost('abc.com', mainApp));
-app.use(vhost('*.*.*.*', mainApp));
-app.use(vhost('*', mainApp));
+if (app.get('env') == 'production') {
+  setVhost(config.serverDomain);
+} else {
+  setVhost('abc.com');
+}
 
-app.use(vhost('admin.abc.com', adminApp));
+function setVhost (domain) {
+  app.use(vhost('www.'+domain, mainApp));
+  app.use(vhost(domain, mainApp));
+  app.use(vhost('*.*.*.*', mainApp));
+  app.use(vhost('*', mainApp));
 
-//跨域资源共享
-app.use(vhost('api.abc.com', require('cors')()));
+  app.use(vhost('admin.'+domain, adminApp));
 
-app.use(vhost('api.abc.com', apiApp));
+  //跨域资源共享
+  app.use(vhost('api.'+domain, require('cors')()));
 
+  app.use(vhost('api.'+domain, apiApp));
+}
 
 
 

@@ -3,6 +3,7 @@
 // var essay = require('../viewModels/essay.js');
 // var home = require('../viewModels/home.js');
 // var parts = require('../viewModels/parts.js');
+
 var blogEdit = require('../viewModels/admin/blogEdit.js');
 var Login = require('../viewModels/admin/login.js');
 
@@ -28,7 +29,7 @@ exports.post_login = function(req, res, next) {
   Login.verification(ip)(function (err,result) {
     if (err) return res.send(500, 'Error occurred: database error.');
     if (!result.result) return res.redirect(303, '/login');
-    if (userName !== 'admin' || password !== 'admin') {
+    if (!global.BlogInfo.blogAdminUser[userName] || global.BlogInfo.blogAdminUser[userName] !== password) {
       Login.addloginLog({result: false,userName: userName,password: password,ip: ip,userAgent: userAgent});
       return res.redirect(303, '/login');
     }
