@@ -16,6 +16,8 @@ module.exports = function () {
     for (var i = 0; i < info.admins.length; i++) {//缓存管理员用户
       global.BlogInfo.blogAdminUser[info.admins[i].user] = info.admins[i].password;
     }
+
+    // console.log(global.BlogInfo);
   });
 
 

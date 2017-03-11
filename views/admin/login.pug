@@ -1,13 +1,18 @@
 extends layout.pug
 block body
-  h1 admin login!
-  form(action="/login" method="POST")
-    input(type="hidden" name="_csrf" value=_csrfToken)
-    .input-group
-      span.input-group-addon 用户名
-      input.form-control(type="text" name="userName" required=true)
-    .input-group
-      span.input-group-addon 密码
-      input.form-control(type="password" name="password" required=true)
-    button.btn.btn-default(type="submit") 提交
+  header.header.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        a.navbar-brand(href="http://"+serverDomain) 一个人的角落
+  .login
+    h1 后台登录
+    form(action="/login" method="POST")
+      input(type="hidden" name="_csrf" value=_csrfToken)
+      .input-group
+        span.input-group-addon 用户名
+        input.form-control(type="text" name="userName" required=true)
+      .input-group
+        span.input-group-addon 密　码
+        input.form-control(type="password" name="password" required=true)
+      button.btn.btn-default(type="submit") 提交
 

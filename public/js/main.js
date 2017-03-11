@@ -1,5 +1,5 @@
 $(function () {
-  var $window = $(window), windowX = $window.width(),windowY = $window.height();
+  var $window = $(window), windowX = $window.width(),windowY = $window.height(),bodyY = $('body').height();
   $('[data-toggle="tooltip"]').tooltip();
   $window.resize(function () {
     windowX = $window.width();
@@ -7,31 +7,45 @@ $(function () {
   });
 
 
-  if (windowX < 768) {//=============================================768px============================================
+
+  if (windowX < 768) {//=============================================小于768px============================================
     blogListSubstr($('.listContent .blogText'),95);
 
 
-
-
-  } else if (windowX < 992) {//========================================992px========================================
-    blogListSubstr($('.listContent .blogText'),210);
-
-
-
-
-  } else if (windowX < 1200) {//========================================1200px========================================
-    blogListSubstr($('.listContent .blogText'),180);
-
-
-
-
-
-  } else {//==================================================================================================================
-    blogListSubstr($('.listContent .blogText'),250);
-
+  } else {//========================================大于768px========================================
 
 
   }
+  if (windowX < 992) {//========================================小于992px========================================
+    if (windowY > bodyY) $('body>.footer').css('marginTop',windowY-bodyY);
+
+
+  } else {//========================================大于992px========================================
+    if (windowY > bodyY) $('body>.footer').css('marginTop',windowY+20-bodyY);
+
+
+  }
+  if (windowX >= 768 && windowX < 992) {//========================================大于768px且小于992px========================================
+    blogListSubstr($('.listContent .blogText'),210);
+
+
+  }
+  if (windowX >= 992 && windowX < 1200) {//========================================大于992px且小于1200px========================================
+    blogListSubstr($('.listContent .blogText'),180);
+
+
+  }
+
+  if (windowX < 1200) {//========================================小于1200px========================================
+
+
+  } else {//========================================大于1200px========================================
+    blogListSubstr($('.listContent .blogText'),250);
+
+
+  }
+
+
 
 
   function blogListSubstr(elments,length) {
@@ -39,16 +53,6 @@ $(function () {
       if ($(this).text().length > length) $(this).text($(this).text().substring(0, length) + '……');
     });
   }
-
-
-
-
-
-
-
-
-
-
 
 
 

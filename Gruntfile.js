@@ -45,7 +45,8 @@ module.exports = function(grunt) {
         },
         files: {
           // 'public/vendor/bootstrap.css': 'less/bootstrap/bootstrap.less',
-          'public/css/main.css': 'less/main.less',
+          'public/css/main.css': 'less/main/main.less',
+          'public/css/admin.css': 'less/admin/main.less',
           // 'public/css/cart.css': 'less/cart.less',
         }
       }
@@ -54,14 +55,16 @@ module.exports = function(grunt) {
       all: {
         files: {
           // 'public/js/stsky.min.js': ['public/js/**/*.js']
-          'public/js/stsky.min.js': 'public/js/main.js'
+          'public/js/stsky.min.js': 'public/js/main.js',
+          'public/js/stskyAd.min.js': 'public/js/admin.js'
         }
       }
     },
     cssmin: {
       combine: {
         files: {
-          'public/css/stsky.min.css': ['public/css/**/*.css', '!public/css/stsky*.css'],
+          'public/css/stsky.min.css': 'public/css/main.css',
+          'public/css/stskyAd.min.css': 'public/css/admin.css',
           // 'public/vendor/bootstrap.min.css': 'public/vendor/bootstrap.css'
         }
       }
@@ -73,7 +76,9 @@ module.exports = function(grunt) {
       all: {
         src: [
           'public/js/stsky.min.js',
+          'public/js/stskyAd.min.js',
           'public/css/stsky.min.css',
+          'public/css/stskyAd.min.css',
           // 'public/vendor/bootstrap.min.css'
         ],
         dest: [
@@ -84,7 +89,7 @@ module.exports = function(grunt) {
 
     watch: {
       build: {
-        files: ['less/**/*.less','public/js/main.js'],
+        files: ['less/**/*.less','public/js/main.js','public/js/admin.js'],
         tasks: ['less','cssmin', 'uglify'],
         options: { spawn: false}
       }
@@ -104,7 +109,7 @@ module.exports = function(grunt) {
         },
         files: {
           src: [
-            'views/**/*.handlebars'
+            'views/**/*.pug'
           ]
         }
       },
