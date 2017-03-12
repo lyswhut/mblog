@@ -6868,39 +6868,24 @@ body > footer.container-fluid p {
 .main_leftCt {
   padding: 0;
 }
-body > .home_header {
-  position: relative;
-  height: 400px;
+.header {
   background: #fff;
+  margin-bottom: 0;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd;
 }
-body > .home_header > .navbar {
-  min-height: 30px;
-  position: absolute;
-  width: 100%;
-  margin: 0 -15px;
-  bottom: 1px;
-  border-radius: 0;
-  border: 0;
-  border-top: 1px solid #ddd;
+.main_leftCt {
+  background-color: #fff;
 }
-body > .home_header > .navbar ul a {
-  padding-left: 25px;
-  padding-right: 25px;
-}
-body > .home_header > .navbar .navbar-toggle {
-  height: 30px;
-  display: block;
-  text-align: center;
-  font-size: 24px;
-  float: none;
-  line-height: 0.8;
+.main_leftCt h1 {
   margin: 0;
-  padding: 0;
-  color: #888;
+  font-size: 18px;
 }
 .header {
   background: #fff;
   margin-bottom: 0;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd;
 }
 .login {
   position: relative;
@@ -6991,6 +6976,18 @@ body > .home_header > .navbar .navbar-toggle {
   }
   .login {
     width: 60%;
+    border: 1px solid #ddd;
+  }
+  .login h1 {
+    color: #666;
+    font-size: 20px;
+    padding: 12px 0 10px;
+  }
+  .login form {
+    padding: 15px 10px 20px;
+  }
+  .login .input-group {
+    margin-bottom: 15px;
   }
   body > footer.container-fluid {
     padding-top: 10px;
@@ -7192,7 +7189,7 @@ body > .home_header > .navbar .navbar-toggle {
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   }
   .login {
-    width: 350px;
+    width: 450px;
   }
   body > footer.container-fluid {
     padding-top: 15px;
