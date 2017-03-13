@@ -12,7 +12,18 @@ $(function () {
   $login.css('top',(windowY-52-45 - $login.height())/2);
 
   if (windowX < 768) {//=============================================小于768px============================================
-
+    /**
+     * 导航栏
+     * 鼠标划过就展开子菜单，免得需要点击才能展开
+     */
+    (function() {
+        var $dropdownLi = $('li.dropdown');
+        $dropdownLi.mouseover(function() {
+            $(this).addClass('open');
+        }).mouseout(function() {
+            $(this).removeClass('open');
+        });
+    })();
 
   } else {//========================================大于768px========================================
 
@@ -23,6 +34,7 @@ $(function () {
 
   } else {//========================================大于992px========================================
     if (windowY > bodyY) $('body>.footer').css('marginTop',windowY+20-bodyY);
+    $('.main_leftCt').css('height',windowY-52);
 
 
   }

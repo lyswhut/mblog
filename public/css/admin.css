@@ -6851,20 +6851,6 @@ body > footer.container-fluid .contentLeft {
 body > footer.container-fluid p {
   margin-bottom: 2px;
 }
-#nav .form-group {
-  position: relative;
-}
-#nav .form-group .search {
-  width: 80%;
-}
-#nav .form-group .submit {
-  width: 18%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding-left: 0;
-  padding-right: 0;
-}
 .main_leftCt {
   padding: 0;
 }
@@ -6875,11 +6861,14 @@ body > footer.container-fluid p {
   border-bottom: 1px solid #ddd;
 }
 .main_leftCt {
+  overflow: auto;
   background-color: #fff;
+  padding-right: 0;
 }
 .main_leftCt h1 {
   margin: 0;
   font-size: 18px;
+  border-bottom: 1px solid #ddd;
 }
 .header {
   background: #fff;
@@ -6970,9 +6959,23 @@ body > footer.container-fluid p {
     margin-right: -7px;
     padding: 0 7px;
   }
-  body > .home_header > .navbar {
-    min-height: 50px;
-    height: 50px;
+  .main_leftCt {
+    overflow: auto;
+    background-color: #fff;
+  }
+  .main_leftCt h1 {
+    margin: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+  }
+  .main_leftCt > ul > li {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;
+  }
+  .main_leftCt > ul > li ul {
+    display: none;
   }
   .login {
     width: 60%;
@@ -7001,18 +7004,6 @@ body > footer.container-fluid p {
   }
   body > footer.container-fluid .contentRight {
     text-align: right;
-  }
-  #nav .form-group {
-    position: relative;
-  }
-  #nav .form-group .search {
-    width: auto;
-  }
-  #nav .form-group .submit {
-    width: auto;
-    position: relative;
-    padding-left: 12px;
-    padding-right: 12px;
   }
 }
 @media (min-width: 992px) {
@@ -7182,12 +7173,6 @@ body > footer.container-fluid p {
     margin-right: -9px;
     padding: 0 9px;
   }
-  body > .home_header {
-    height: 400px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
-  }
   .login {
     width: 450px;
   }
@@ -7200,12 +7185,6 @@ body > footer.container-fluid p {
   }
   body > footer.container-fluid p {
     margin-bottom: 4px;
-  }
-  body > footer.container-fluid .contentLeft {
-    padding: 0 15px;
-  }
-  .main_leftCt {
-    padding-right: 10px;
   }
   .main_rightCt {
     padding: 0;
@@ -7220,8 +7199,5 @@ body > footer.container-fluid p {
   }
   body > footer.container-fluid p {
     margin-bottom: 5px;
-  }
-  .main_leftCt {
-    padding-right: 15px;
   }
 }
