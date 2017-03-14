@@ -83,4 +83,77 @@ console.log(d);*/
 /*var s=['192.168.1.1','192.168.1.2','192.168.1.3'];
 var u=s.shift();
 console.log(s);*/
+// var ret = [{
+//   name: '全部',
+//   id: null,
+//   children: [{
+//       name: 'a',
+//       id: 1,
+//       pid: null,
+//       children: [{
+//         name: 'a1',
+//         id: 11,
+//         pid: 1,
+//         children: null
+//       }]
+//     },{
+//       name: 'b',
+//       id: 2,
+//       pid: null,
+//       children: null
+//     }
+//   ]
+// }];
+// var list = [
+//   {
+//     id:1,
+//     name : 'a',
+//     pid : null
+//   },
+//   {
+//     id:2,
+//     name : 'b',
+//     pid : null
+//   },
+//   {
+//     id:11,
+//     name : 'a1',
+//     pid : 1
+//   },
+//   {
+//     id:12,
+//     name : 'b1',
+//     pid : 2
+//   }
+// ];
+
+
+// var ret = [{
+//   name: '全部',
+//   id: null,
+//   children: recursion(list)
+// }];
+// console.log(ret);
+
+
+// function recursion(list,children) {
+//   if (arguments.length === 1) {
+//     var rets = [];
+//     list.forEach(function (li) {
+//       if (li.pid === null) {
+//         li.children = [];
+//         rets.push(li);
+//       } else {
+//         recursion(rets,li);
+//       }
+//     });
+//     return rets;
+//   }
+//   for (var i = 0; i < list.length; i++) if (list[i].id === children.pid) return list[i].children.push(children);
+// }
+
+
+
+
+
 

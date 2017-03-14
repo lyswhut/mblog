@@ -6826,17 +6826,6 @@ body {
   font-size: 16px;
   background: url("/img/background.png");
 }
-body pre {
-  font-size: 14px;
-  overflow-x: auto;
-  white-space: pre;
-}
-body pre code {
-  overflow-x: auto;
-}
-body pre code li {
-  white-space: pre;
-}
 body > footer.container-fluid {
   font-size: 14px;
   padding-top: 5px;
@@ -6848,11 +6837,19 @@ body > footer.container-fluid {
 body > footer.container-fluid .contentLeft {
   padding: 0 5px;
 }
-body > footer.container-fluid p {
-  margin-bottom: 2px;
+pre {
+  font-size: 14px;
+  overflow-x: auto;
+  white-space: pre;
 }
-.main_leftCt {
-  padding: 0;
+pre code {
+  overflow-x: auto;
+}
+pre code li {
+  white-space: pre;
+}
+p {
+  margin-bottom: 2px;
 }
 .header {
   background: #fff;
@@ -6863,7 +6860,7 @@ body > footer.container-fluid p {
 .main_leftCt {
   overflow: auto;
   background-color: #fff;
-  padding-right: 0;
+  padding: 0;
 }
 .main_leftCt h1 {
   margin: 0;
@@ -6959,24 +6956,6 @@ body > footer.container-fluid p {
     margin-right: -7px;
     padding: 0 7px;
   }
-  .main_leftCt {
-    overflow: auto;
-    background-color: #fff;
-  }
-  .main_leftCt h1 {
-    margin: 0;
-    font-size: 18px;
-    border-bottom: 1px solid #ddd;
-  }
-  .main_leftCt > ul > li {
-    width: 100%;
-    height: 35px;
-    line-height: 35px;
-    border-bottom: 1px solid #ddd;
-  }
-  .main_leftCt > ul > li ul {
-    display: none;
-  }
   .login {
     width: 60%;
     border: 1px solid #ddd;
@@ -7004,6 +6983,43 @@ body > footer.container-fluid p {
   }
   body > footer.container-fluid .contentRight {
     text-align: right;
+  }
+  .main_leftCt {
+    overflow: auto;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+  }
+  .main_leftCt h1 {
+    margin: 0;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+  }
+  .main_leftCt .left_Menu > li {
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: center;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;
+  }
+  .main_leftCt .left_Menu > li a {
+    display: block;
+    color: #565656;
+    padding: 5px 0;
+    text-decoration: none;
+  }
+  .main_leftCt .left_Menu > li a:link {
+    text-decoration: none;
+  }
+  .main_leftCt .left_Menu > li a:hover {
+    text-decoration: none;
+    background-color: #eee;
+  }
+  .main_leftCt .left_Menu > li:hover {
+    background-color: #fafafa;
+  }
+  .main_leftCt .left_Menu ul {
+    height: 0;
+    overflow: hidden;
   }
 }
 @media (min-width: 992px) {

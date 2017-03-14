@@ -40,10 +40,10 @@ block body
 
   .main.container-fluid
     .row
-      .col-sm-2.hidden-xs.main_leftCt
-        h1 Hi, #[strong admin],welcome to the Admin home!
+      .col-sm-2.col-lg-1.hidden-xs.main_leftCt
+        h1 Hi,#[strong admin], welcome to the Admin home!
           a(href="/logout") 退出登录
-        ul.list-unstyled
+        ul.list-unstyled.left_Menu
           li
             a(href="javascript:;") 运行信息
           li
@@ -57,9 +57,11 @@ block body
             a(href="javascript:;") 文章管理
             ul.list-unstyled
               li
-                a(href="javascript:;") 添加文章
+                a(href="javascript:;") 所有文章
               li
-                a(href="javascript:;") 编辑文章
+                a(href="/addBlog") 添加文章
+              li
+                a(href="/deitBlog") 编辑文章
           li
             a(href="javascript:;") 评论管理
           li
@@ -72,9 +74,9 @@ block body
           li
             a(href="javascript:;") 系统设置
 
-      .col-sm-10.main_rightCt
+      .col-sm-10.col-lg-11.main_rightCt
         .welcome.visible-xs
-          h1 Hi, #[strong admin],welcome to the Admin home!
+          h1 Hi,#[strong admin], welcome to the Admin home!
             a(href="/logout") 退出登录
 
 

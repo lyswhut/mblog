@@ -21,18 +21,6 @@ body {
   color: #454545;
   font-size: @fontSize;
   background: static('/img/background.png');
-  pre{
-    font-size: 14px;
-    overflow-x: auto;
-    white-space:pre;
-    code {
-      overflow-x: auto;
-      li {
-        white-space:pre;
-      }
-    }
-  }
-
   >footer.container-fluid {
     // margin: 0 15px;
     font-size: 14px;
@@ -44,15 +32,37 @@ body {
     .contentLeft {
       padding: 0 5px;
     }
-    p {
-      margin-bottom: 2px;
+  }
+}
+pre{
+  font-size: 14px;
+  overflow-x: auto;
+  white-space:pre;
+  code {
+    overflow-x: auto;
+    li {
+      white-space:pre;
     }
   }
 }
-
-.main_leftCt{
-  padding: 0;
+p {margin-bottom: 2px;}
+.header {
+  background: #fff;
+  margin-bottom: 0;
+  .box_shadow;
+  .border_bottom;
 }
+.main_leftCt {
+  overflow: auto;
+  background-color: #fff;
+  padding: 0;
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    .border_bottom;
+  }
+}
+
 
 
 @import "includes_xs.less";
@@ -81,7 +91,45 @@ body {
       }
     }
   }
+  .main_leftCt {
+    overflow: auto;
+    background-color: #fff;
+    .border_right;
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      .border_bottom;
+    }
+    .left_Menu>li {
+      .transition_ease_fast;
+      width: 100%;
+      text-align: center;
+      line-height: 35px;
+      .border_bottom;
+      a {
+        display: block;
+        color: #565656;
+        padding: 5px 0;
+        text-decoration: none;
+      }
+      a:link {
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: none;
+        background-color: #eee;
+      }
+    }
+    .left_Menu>li:hover{
+      background-color: #fafafa;
+    }
+    .left_Menu ul {
+      height: 0;
+      overflow: hidden;
+    }
+  }
 }
+
 
 @media (min-width: @screen-md-min) {
   @import "includes_md.less";

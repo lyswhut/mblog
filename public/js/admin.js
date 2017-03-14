@@ -26,7 +26,21 @@ $(function () {
     })();
 
   } else {//========================================大于768px========================================
-
+    $('.main_leftCt').css('height',windowY-52);
+    $('.left_Menu>li').on('click', function (e) {
+      if (e.target != this.firstChild) return;
+      var _this = $(this).children('ul');
+      if (_this.height()) {
+        _this.animate({
+          height: 0
+        },'fast');
+      } else {
+        var h = _this.height('auto').height();
+        _this.height(0).animate({
+          height: h
+        },'fast');
+      }
+    });
   }
   if (windowX < 992) {//========================================小于992px========================================
     if (windowY > bodyY) $('body>.footer').css('marginTop',windowY-bodyY);
@@ -34,7 +48,6 @@ $(function () {
 
   } else {//========================================大于992px========================================
     if (windowY > bodyY) $('body>.footer').css('marginTop',windowY+20-bodyY);
-    $('.main_leftCt').css('height',windowY-52);
 
 
   }
