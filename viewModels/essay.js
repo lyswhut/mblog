@@ -65,7 +65,7 @@ module.exports = function (blogTextId,page,ip) {
           Views.update({vid: data[0].id},{$push:{'ips':{ip:ip,date:new Date()}}},{upsert: true},function (err) {
             if (err) console.log('插入IP出错：'+ err);
           });
-        } else if ((new Date().getTime() - 86400000) > (new Date(rip[0].ips.date).getTime())) {
+        } else if ((new Date().getTime() - 259200000) > (new Date(rip[0].ips.date).getTime())) {
           Views.update({vid: data[0].id,'ips.ip':ip},{'ips.$.date':new Date()},{upsert: true},function (err) {
             if (err) console.log('更新IP出错：'+ err);
           });

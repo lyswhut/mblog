@@ -1,7 +1,7 @@
 extends layout.pug
 block body
-  h1 添加文章
-  form(action="/addBlog" method="POST")
+  h1 编辑文章
+  form(action="/edit" method="POST")
     input(type="hidden" name="_csrf" value=_csrfToken)
     .input-group
       span.input-group-addon 标题
