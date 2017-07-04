@@ -152,8 +152,6 @@ console.log(s);*/
 //   for (var i = 0; i < list.length; i++) if (list[i].id === children.pid) return list[i].children.push(children);
 // }
 
-
-
-
+/*jshint esversion: 6 */
 
 

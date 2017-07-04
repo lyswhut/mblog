@@ -39,7 +39,7 @@ exports.getCalendarData = function (_year,_month) {
     var lt = new Date(year+'-'+(month+1)+'-1 0:0:0');
     BlogText.aggregate([
       {$match: {display:true,"$and":[{date:{"$gt":gt}},{date:{"$lt":lt}}]}},
-      {$project: {time: {$substr: ['$date',0,10]}}},
+      {$project: {time: {$substr: [{$add:['$date', 28800000]},0,10]}}},
       {$group: {_id:'$time', count: {$sum:1}}},
       {$sort:{_id: 1}}
       ]).exec(function (err, result) {
@@ -204,6 +204,7 @@ exports.insertComment = function (obj) {
           display: true,
           authorType: obj.authorType,
           authorName: obj.authorName,
+          authorEmail: obj.authorEmail,
           authorImgUrl: obj.authorImgUrl,
           authorIp: obj.authorIp,
           ding: [],
@@ -234,6 +235,7 @@ exports.insertComment = function (obj) {
           display: true,
           authorType: obj.authorType,
           authorName: obj.authorName,
+          authorEmail: obj.authorEmail,
           authorImgUrl: obj.authorImgUrl,
           authorIp: obj.authorIp,
           date: new Date(),

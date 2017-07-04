@@ -9,6 +9,7 @@ var commentSchema = mongoose.Schema({
 	display: Boolean,
 	authorType: String,
 	authorName: String,
+	authorEmail: String,
 	authorImgUrl: String,
 	authorIp: String,
 	date: {type:Date,default:Date.now},

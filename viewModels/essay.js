@@ -1,4 +1,4 @@
-var markdown = require("markdown-it")({langPrefix:'prettyprint linenums lang-'});
+var markdown = require("markdown-it")({html:true, langPrefix:'prettyprint linenums lang-'});
 var Comment = require('../models/comment.js');
 var BlogText = require('../models/blogText.js');
 var Views = require('../models/views.js');
